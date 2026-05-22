@@ -155,20 +155,20 @@ export default function WhySection() {
             signature. Votre satisfaction, notre meilleure publicité depuis 2010.
           </blockquote>
           <div className="flex items-center gap-4">
-            <div
-              className="w-10 h-10 flex items-center justify-center text-base font-bold flex-shrink-0"
-              style={{
-                backgroundColor: "rgba(201,98,60,0.15)",
-                border: "1px solid rgba(201,98,60,0.3)",
-                color: "var(--terracotta)",
-                fontFamily: "var(--font-serif)",
-              }}
-            >
-              GE
-            </div>
-            <div>
-              <div className="font-semibold text-white text-sm">Guillaume Etasse</div>
-              <div className="text-xs" style={{ color: "rgba(255,255,255,0.45)" }}>
+            <div className="flex flex-col">
+              <span
+                className="leading-none"
+                style={{
+                  fontFamily: "var(--font-handwriting)",
+                  fontSize: "1.6rem",
+                  fontWeight: 700,
+                  color: "var(--terracotta)",
+                  letterSpacing: "0.01em",
+                }}
+              >
+                Guillaume Etasse
+              </span>
+              <div className="text-xs mt-1" style={{ color: "rgba(255,255,255,0.45)" }}>
                 Fondateur · Entre 4 Murs · Artisan depuis 2010
               </div>
             </div>

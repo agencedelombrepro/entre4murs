@@ -181,7 +181,7 @@ export default function MatiereSection() {
               Le vrai luxe, c'est la qualité{" "}
               <span style={{ color: "var(--terracotta)" }}>du travail invisible.</span>
             </blockquote>
-            <div className="flex items-center justify-center gap-3">
+            <div className="flex items-center justify-center gap-3 mb-3">
               <div className="h-px w-8" style={{ backgroundColor: "var(--terracotta)" }} />
               <span
                 className="text-xs uppercase tracking-[0.2em] font-semibold"
@@ -190,6 +190,18 @@ export default function MatiereSection() {
                 Guillaume Etasse — Fondateur Entre 4 Murs
               </span>
               <div className="h-px w-8" style={{ backgroundColor: "var(--terracotta)" }} />
+            </div>
+            <div
+              className="inline-block"
+              style={{
+                fontFamily: "var(--font-handwriting)",
+                fontSize: "1.15rem",
+                color: "var(--terracotta)",
+                transform: "rotate(-1deg)",
+                opacity: 0.75,
+              }}
+            >
+              fait main · sans sous-traitance · depuis 2010
             </div>
           </motion.div>
         </motion.div>

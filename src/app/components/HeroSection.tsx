@@ -55,6 +55,22 @@ export default function HeroSection() {
             </span>
           </motion.div>
 
+          {/* Handwritten note */}
+          <motion.div
+            initial={{ opacity: 0, x: -10 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7, delay: 0.35 }}
+            className="mb-5 -mt-2"
+            style={{
+              fontFamily: "var(--font-handwriting)",
+              fontSize: "1.1rem",
+              color: "rgba(201,98,60,0.7)",
+              transform: "rotate(-0.5deg)",
+            }}
+          >
+            votre artisan de confiance dans l'Orne
+          </motion.div>
+
           {/* Main title */}
           <h1 className="mb-4 text-white">
             {titleWords.map((word, wi) => (
@@ -204,6 +220,29 @@ export default function HeroSection() {
           />
           {/* Dark overlay for text readability */}
           <div className="absolute inset-0" style={{ background: "rgba(31,47,58,0.12)" }} />
+
+          {/* Artisan stamp */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.7, rotate: -15 }}
+            animate={{ opacity: 1, scale: 1, rotate: -8 }}
+            transition={{ delay: 1.6, duration: 1, ease: [0.22, 1, 0.36, 1] }}
+            className="absolute top-8 right-8 hidden lg:block"
+          >
+            <svg width="112" height="112" viewBox="0 0 112 112" aria-hidden="true" style={{ color: "var(--terracotta)", opacity: 0.82 }}>
+              <defs>
+                <path id="stamp-arc" d="M56,56 m-41,0 a41,41 0 1,1 82,0 a41,41 0 1,1 -82,0" />
+              </defs>
+              <circle cx="56" cy="56" r="52" fill="none" stroke="currentColor" strokeWidth="1.5" strokeDasharray="3 2.5" />
+              <circle cx="56" cy="56" r="44" fill="none" stroke="currentColor" strokeWidth="0.6" />
+              <text fontSize="7.2" fontFamily="Inter, sans-serif" fontWeight="600" fill="currentColor" letterSpacing="2.8">
+                <textPath href="#stamp-arc">ARTISAN PEINTRE · L'AIGLE 61 · DEPUIS 2010 ·&nbsp;&nbsp;</textPath>
+              </text>
+              <text x="56" y="51" textAnchor="middle" fontSize="15" fontFamily="'Caveat', cursive" fontWeight="700" fill="currentColor">Guillaume</text>
+              <text x="56" y="67" textAnchor="middle" fontSize="15" fontFamily="'Caveat', cursive" fontWeight="700" fill="currentColor">Etasse</text>
+              <line x1="38" y1="58" x2="45" y2="58" stroke="currentColor" strokeWidth="0.8" />
+              <line x1="67" y1="58" x2="74" y2="58" stroke="currentColor" strokeWidth="0.8" />
+            </svg>
+          </motion.div>
 
           {/* Floating project badge */}
           <motion.div
