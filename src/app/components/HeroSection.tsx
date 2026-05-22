@@ -78,32 +78,33 @@ export default function HeroSection() {
 
       {/* Main content */}
       <motion.div
-        className="relative z-10 flex-1 flex flex-col justify-end pb-12 px-8 md:px-14 lg:px-20 pt-32"
+        className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-6 md:px-12 pt-24 pb-12"
         style={{ y: contentY }}
       >
         {/* Top label */}
         <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="flex items-center gap-3 mb-3"
+          className="inline-flex items-center gap-3 mb-3"
         >
           <div className="h-px w-8" style={{ backgroundColor: "var(--terracotta)" }} />
           <span className="text-xs uppercase tracking-[0.25em] font-semibold" style={{ color: "var(--terracotta)" }}>
             Depuis 2010 · L'Aigle, Orne
           </span>
+          <div className="h-px w-8" style={{ backgroundColor: "var(--terracotta)" }} />
         </motion.div>
 
         {/* Handwritten note */}
         <motion.div
-          initial={{ opacity: 0, x: -10 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.7, delay: 0.3 }}
-          className="mb-4"
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.32 }}
+          className="mb-5"
           style={{
             fontFamily: "var(--font-handwriting)",
-            fontSize: "1.2rem",
-            color: "rgba(201,98,60,0.8)",
+            fontSize: "1.25rem",
+            color: "rgba(201,98,60,0.85)",
             transform: "rotate(-0.5deg)",
           }}
         >
@@ -111,23 +112,23 @@ export default function HeroSection() {
         </motion.div>
 
         {/* Main title */}
-        <h1 className="mb-6 max-w-3xl">
-          {["Artisan peintre", "& plaquiste", "à L'Aigle,", "dans l'Orne."].map((word, wi) => (
+        <h1 className="mb-6">
+          {["Artisan peintre & plaquiste", "à L'Aigle, dans l'Orne."].map((line, li) => (
             <motion.span
-              key={wi}
+              key={li}
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.45 + wi * 0.12, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.85, delay: 0.45 + li * 0.15, ease: [0.22, 1, 0.36, 1] }}
               className="block"
               style={{
-                fontSize: "clamp(2.2rem, 5.5vw, 4rem)",
-                lineHeight: 1.05,
+                fontSize: "clamp(2rem, 5vw, 3.8rem)",
+                lineHeight: 1.1,
                 fontFamily: "var(--font-serif)",
                 fontWeight: 700,
-                color: wi >= 2 ? "var(--terracotta)" : "white",
+                color: li === 1 ? "var(--terracotta)" : "white",
               }}
             >
-              {word}
+              {line}
             </motion.span>
           ))}
         </h1>
@@ -136,8 +137,8 @@ export default function HeroSection() {
         <motion.p
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.95 }}
-          className="text-sm mb-6 max-w-lg leading-relaxed"
+          transition={{ duration: 0.7, delay: 0.8 }}
+          className="text-sm mb-7 max-w-xl leading-relaxed"
           style={{ color: "rgba(255,255,255,0.65)" }}
         >
           Rénovation intérieure de qualité. Travaux conformes DTU, assurance décennale,
@@ -146,10 +147,10 @@ export default function HeroSection() {
 
         {/* Trust badges */}
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
+          initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 1.05 }}
-          className="flex flex-wrap gap-2 mb-6"
+          transition={{ duration: 0.7, delay: 0.95 }}
+          className="flex flex-wrap justify-center gap-2 mb-7"
         >
           {badges.map(({ icon: Icon, label }) => (
             <div
@@ -169,14 +170,14 @@ export default function HeroSection() {
 
         {/* CTAs */}
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
+          initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 1.15 }}
-          className="flex flex-col sm:flex-row gap-3 mb-8"
+          transition={{ duration: 0.7, delay: 1.08 }}
+          className="flex flex-col sm:flex-row justify-center gap-3 mb-8"
         >
           <motion.a
             href="#contact"
-            whileHover={{ scale: 1.03, x: 4 }}
+            whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
             className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 text-sm font-semibold text-white"
             style={{ backgroundColor: "var(--terracotta)" }}
@@ -210,8 +211,8 @@ export default function HeroSection() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.35, duration: 0.7 }}
-          className="flex flex-col sm:flex-row sm:items-center gap-4"
+          transition={{ delay: 1.25, duration: 0.7 }}
+          className="flex flex-col sm:flex-row sm:items-center justify-center gap-4"
         >
           <a
             href="tel:+33XXXXXXXXX"
@@ -223,14 +224,14 @@ export default function HeroSection() {
             >
               <Phone size={16} style={{ color: "var(--terracotta)" }} />
             </div>
-            <div>
+            <div className="text-left">
               <div className="text-xs text-white/50 mb-0.5">Appel gratuit</div>
               <div className="font-semibold text-sm tracking-wide">06 XX XX XX XX</div>
             </div>
           </a>
           <div className="hidden sm:block w-px h-8" style={{ backgroundColor: "rgba(255,255,255,0.15)" }} />
           <div>
-            <div className="flex gap-0.5 mb-0.5">
+            <div className="flex gap-0.5 mb-0.5 justify-center">
               {[1, 2, 3, 4, 5].map((i) => (
                 <Star key={i} size={13} fill="var(--terracotta)" style={{ color: "var(--terracotta)" }} />
               ))}
