@@ -1,9 +1,12 @@
 import { motion, AnimatePresence } from "motion/react";
+import { Helmet } from "react-helmet-async";
 import Navigation from "../components/Navigation";
 import CTASection from "../components/CTASection";
 import { MapPin, Phone, CheckCircle2, ArrowRight, ChevronDown } from "lucide-react";
 import { Link } from "react-router";
 import { useState } from "react";
+
+const DOMAIN = "https://entre4murs.fr";
 
 interface CityPageProps {
   city: string;
@@ -583,7 +586,55 @@ export default function CityPage({ city }: CityPageProps) {
     );
   }
 
+  const citySlugMap: Record<string, string> = {
+    laigle: "peintre-laigle",
+    verneuil: "peintre-verneuil-davre-et-diton",
+    mortagne: "peintre-mortagne-au-perche",
+    nogent: "peintre-nogent-le-rotrou",
+    gace: "peintre-gace",
+    argentan: "peintre-argentan",
+    tourouvre: "peintre-tourouvre-au-perche",
+    saintsulpice: "peintre-saint-sulpice-sur-risle",
+    rai: "peintre-rai",
+    aube: "peintre-aube",
+    crulai: "peintre-crulai",
+    chandai: "peintre-chandai",
+    moulins: "peintre-moulins-la-marche",
+    longny: "peintre-longny-les-villages",
+  };
+  const canonicalPath = citySlugMap[city] ?? city;
+
   return (
+    <>
+      <Helmet>
+        <title>{data.seoTitle}</title>
+        <meta name="description" content={data.metaDescription} />
+        <link rel="canonical" href={`${DOMAIN}/${canonicalPath}`} />
+        <meta property="og:title" content={data.seoTitle} />
+        <meta property="og:description" content={data.metaDescription} />
+        <meta property="og:url" content={`${DOMAIN}/${canonicalPath}`} />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content={`${DOMAIN}${data.heroPhoto}`} />
+        <meta name="robots" content="index, follow" />
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "LocalBusiness",
+          "name": "Entre 4 Murs",
+          "description": data.metaDescription,
+          "url": `${DOMAIN}/${canonicalPath}`,
+          "telephone": "06XXXXXXXX",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "L'Aigle",
+            "addressLocality": data.name,
+            "postalCode": data.postalCode,
+            "addressCountry": "FR"
+          },
+          "areaServed": data.name,
+          "priceRange": "€€"
+        })}</script>
+      </Helmet>
+
     <div className="min-h-screen" style={{ backgroundColor: "var(--off-white)" }}>
       <Navigation />
 
@@ -893,5 +944,6 @@ export default function CityPage({ city }: CityPageProps) {
 
       <CTASection />
     </div>
+    </>
   );
 }

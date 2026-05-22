@@ -1,9 +1,12 @@
 import { motion, AnimatePresence } from "motion/react";
+import { Helmet } from "react-helmet-async";
 import { useState } from "react";
 import { ChevronDown, ArrowRight, Phone, Shield, Award, CheckCircle2, ArrowLeft } from "lucide-react";
 import { Link } from "react-router";
 import Navigation from "../components/Navigation";
 import CTASection from "../components/CTASection";
+
+const DOMAIN = "https://entre4murs.fr";
 
 export type ServiceSlug =
   | "peinture-interieure"
@@ -518,7 +521,48 @@ interface ServicePageProps {
 export default function ServicePage({ service }: ServicePageProps) {
   const data = services[service];
 
+  const slugMap: Record<ServiceSlug, string> = {
+    "peinture-interieure": "peinture-interieure",
+    "peinture-exterieure": "peinture-exterieure",
+    "pose-placo": "pose-placo-platrerie",
+    "renovation-interieure": "renovation-interieure",
+    "ravalement-facade": "ravalement-facade",
+    "enduits-finitions": "enduits-finitions-decoratives",
+  };
+
   return (
+    <>
+      <Helmet>
+        <title>{data.metaTitle}</title>
+        <meta name="description" content={data.metaDescription} />
+        <link rel="canonical" href={`${DOMAIN}/${slugMap[service]}`} />
+        <meta property="og:title" content={data.metaTitle} />
+        <meta property="og:description" content={data.metaDescription} />
+        <meta property="og:url" content={`${DOMAIN}/${slugMap[service]}`} />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content={`${DOMAIN}${data.heroPhoto}`} />
+        <meta name="robots" content="index, follow" />
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "name": data.label,
+          "provider": {
+            "@type": "LocalBusiness",
+            "name": "Entre 4 Murs",
+            "telephone": "06XXXXXXXX",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "L'Aigle",
+              "postalCode": "61300",
+              "addressCountry": "FR"
+            }
+          },
+          "areaServed": "Orne",
+          "description": data.metaDescription,
+          "url": `${DOMAIN}/${slugMap[service]}`
+        })}</script>
+      </Helmet>
+
     <div className="min-h-screen" style={{ backgroundColor: "var(--off-white)" }}>
       <Navigation />
 
@@ -832,5 +876,6 @@ export default function ServicePage({ service }: ServicePageProps) {
 
       <CTASection />
     </div>
+    </>
   );
 }
