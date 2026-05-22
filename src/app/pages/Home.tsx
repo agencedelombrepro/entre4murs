@@ -8,6 +8,7 @@ import PortfolioSection from "../components/PortfolioSection";
 import TestimonialsSection from "../components/TestimonialsSection";
 import CTASection from "../components/CTASection";
 import Navigation from "../components/Navigation";
+import ProcessSection from "../components/ProcessSection";
 
 const DOMAIN = "https://entre4murs.fr";
 
@@ -37,6 +38,7 @@ export default function Home() {
           <MatiereSection />
           <ServicesSection />
           <ZonesSection />
+          <ProcessSection />
           <WhySection />
           <PortfolioSection />
           <TestimonialsSection />

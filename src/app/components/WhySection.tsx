@@ -46,12 +46,11 @@ export default function WhySection() {
       className="relative py-16 overflow-hidden"
       style={{ backgroundColor: "var(--navy)" }}
     >
-      {/* Subtle texture overlay */}
+      {/* Subtle radial decoration */}
       <div
-        className="absolute inset-0 opacity-[0.03]"
+        className="absolute top-0 right-0 w-96 h-96 opacity-[0.04] pointer-events-none"
         style={{
-          backgroundImage:
-            "repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,0.5) 39px, rgba(255,255,255,0.5) 40px), repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,0.5) 39px, rgba(255,255,255,0.5) 40px)",
+          background: "radial-gradient(circle, rgba(201,98,60,1) 0%, transparent 70%)",
         }}
       />
 
