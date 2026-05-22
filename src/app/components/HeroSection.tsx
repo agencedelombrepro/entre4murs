@@ -2,8 +2,6 @@ import { motion, useScroll, useTransform } from "motion/react";
 import { ArrowRight, Shield, Award, CheckCircle2, Phone, Star } from "lucide-react";
 import { useRef } from "react";
 
-const titleWords = ["Artisan peintre", "& plaquiste", "à L'Aigle,", "dans l'Orne."];
-
 const stats = [
   { value: "16", unit: "ans", label: "D'expérience" },
   { value: "500+", unit: "", label: "Chantiers réalisés" },
@@ -24,277 +22,246 @@ export default function HeroSection() {
     offset: ["start start", "end start"],
   });
 
-  const photoY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
-  const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "8%"]);
+  const photoY = useTransform(scrollYProgress, [0, 1], ["0%", "25%"]);
+  const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "10%"]);
 
   return (
-    <section ref={ref} className="relative min-h-screen flex flex-col overflow-hidden">
-      {/* Main grid: left navy content + right photo */}
-      <div className="flex flex-col lg:flex-row flex-1 min-h-screen">
-        {/* LEFT — Navy content */}
+    <section ref={ref} className="relative flex flex-col overflow-hidden" style={{ minHeight: "100svh" }}>
+      {/* Background photo — parallax */}
+      <motion.div
+        className="absolute inset-0"
+        style={{ y: photoY, scale: 1.08 }}
+      >
+        <img
+          src="/images/chantier-01.jpg"
+          alt="Chantier rénovation Entre 4 Murs — Artisan peintre L'Aigle Orne"
+          className="w-full h-full object-cover"
+        />
+      </motion.div>
+
+      {/* Overlays */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background: "linear-gradient(to right, rgba(15,25,33,0.88) 0%, rgba(15,25,33,0.55) 55%, rgba(15,25,33,0.15) 100%)",
+        }}
+      />
+      <div
+        className="absolute inset-0"
+        style={{
+          background: "linear-gradient(to top, rgba(15,25,33,0.75) 0%, transparent 50%)",
+        }}
+      />
+
+      {/* Artisan stamp — top right */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.7, rotate: -20 }}
+        animate={{ opacity: 1, scale: 1, rotate: -8 }}
+        transition={{ delay: 1.8, duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+        className="absolute top-28 right-10 hidden lg:block z-10"
+      >
+        <svg width="118" height="118" viewBox="0 0 118 118" aria-hidden="true" style={{ color: "var(--terracotta)", opacity: 0.9 }}>
+          <defs>
+            <path id="stamp-arc" d="M59,59 m-43,0 a43,43 0 1,1 86,0 a43,43 0 1,1 -86,0" />
+          </defs>
+          <circle cx="59" cy="59" r="55" fill="none" stroke="currentColor" strokeWidth="1.5" strokeDasharray="3 2.5" />
+          <circle cx="59" cy="59" r="46" fill="none" stroke="currentColor" strokeWidth="0.6" />
+          <text fontSize="7.4" fontFamily="Inter, sans-serif" fontWeight="600" fill="currentColor" letterSpacing="2.6">
+            <textPath href="#stamp-arc">ARTISAN PEINTRE · L'AIGLE 61 · DEPUIS 2010 ·&nbsp;&nbsp;</textPath>
+          </text>
+          <text x="59" y="54" textAnchor="middle" fontSize="15.5" fontFamily="'Caveat', cursive" fontWeight="700" fill="currentColor">Guillaume</text>
+          <text x="59" y="70" textAnchor="middle" fontSize="15.5" fontFamily="'Caveat', cursive" fontWeight="700" fill="currentColor">Etasse</text>
+          <line x1="40" y1="61" x2="47" y2="61" stroke="currentColor" strokeWidth="0.8" />
+          <line x1="71" y1="61" x2="78" y2="61" stroke="currentColor" strokeWidth="0.8" />
+        </svg>
+      </motion.div>
+
+      {/* Main content */}
+      <motion.div
+        className="relative z-10 flex-1 flex flex-col justify-end pb-12 px-8 md:px-14 lg:px-20 pt-32"
+        style={{ y: contentY }}
+      >
+        {/* Top label */}
         <motion.div
-          className="relative z-10 flex flex-col justify-center px-8 md:px-12 lg:px-16 pt-28 pb-16 lg:pt-0 lg:pb-0 lg:w-[52%]"
-          style={{ backgroundColor: "var(--navy)", y: contentY }}
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="flex items-center gap-3 mb-3"
         >
-          {/* "Depuis 2010" badge */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="flex items-center gap-2 mb-5"
-          >
-            <div
-              className="h-px w-8"
-              style={{ backgroundColor: "var(--terracotta)" }}
-            />
-            <span
-              className="text-xs uppercase tracking-[0.25em] font-semibold"
-              style={{ color: "var(--terracotta)" }}
-            >
-              Depuis 2010 · L'Aigle, Orne
-            </span>
-          </motion.div>
-
-          {/* Handwritten note */}
-          <motion.div
-            initial={{ opacity: 0, x: -10 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7, delay: 0.35 }}
-            className="mb-5 -mt-2"
-            style={{
-              fontFamily: "var(--font-handwriting)",
-              fontSize: "1.1rem",
-              color: "rgba(201,98,60,0.7)",
-              transform: "rotate(-0.5deg)",
-            }}
-          >
-            votre artisan de confiance dans l'Orne
-          </motion.div>
-
-          {/* Main title */}
-          <h1 className="mb-4 text-white">
-            {titleWords.map((word, wi) => (
-              <motion.span
-                key={wi}
-                initial={{ opacity: 0, y: 40 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{
-                  duration: 0.8,
-                  delay: 0.4 + wi * 0.12,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
-                className="block"
-                style={{
-                  fontSize: "clamp(1.9rem, 4vw, 3rem)",
-                  lineHeight: 1.1,
-                  fontFamily: "var(--font-serif)",
-                  fontWeight: 700,
-                  color: wi === 2 || wi === 3 ? "var(--terracotta)" : "white",
-                }}
-              >
-                {word}
-              </motion.span>
-            ))}
-          </h1>
-
-          {/* Subtitle */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.9 }}
-            className="text-sm mb-6 max-w-md leading-relaxed"
-            style={{ color: "rgba(255,255,255,0.65)" }}
-          >
-            Rénovation intérieure de qualité. Travaux conformes DTU, assurance décennale,
-            aucun chantier sous-traité — votre projet entre les mains d'un artisan.
-          </motion.p>
-
-          {/* Trust badges */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 1.0 }}
-            className="flex flex-wrap gap-2 mb-6"
-          >
-            {badges.map(({ icon: Icon, label }) => (
-              <div
-                key={label}
-                className="flex items-center gap-2 px-3 py-1.5 rounded-sm"
-                style={{
-                  border: "1px solid rgba(201,98,60,0.35)",
-                  backgroundColor: "rgba(201,98,60,0.08)",
-                }}
-              >
-                <Icon size={14} style={{ color: "var(--terracotta)" }} />
-                <span className="text-xs text-white/80 font-medium">{label}</span>
-              </div>
-            ))}
-          </motion.div>
-
-          {/* CTAs */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 1.15 }}
-            className="flex flex-col sm:flex-row gap-3 mb-8"
-          >
-            <motion.a
-              href="#contact"
-              whileHover={{ scale: 1.03, x: 4 }}
-              whileTap={{ scale: 0.97 }}
-              className="group inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-semibold text-white transition-all duration-200"
-              style={{ backgroundColor: "var(--terracotta)" }}
-            >
-              Demander un devis gratuit
-              <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-            </motion.a>
-
-            <motion.a
-              href="#realisations"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.97 }}
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-medium text-white transition-all duration-200"
-              style={{ border: "1px solid rgba(255,255,255,0.25)" }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = "rgba(201,98,60,0.6)";
-                e.currentTarget.style.color = "var(--terracotta)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = "rgba(255,255,255,0.25)";
-                e.currentTarget.style.color = "white";
-              }}
-            >
-              Voir nos réalisations
-            </motion.a>
-          </motion.div>
-
-          {/* Phone + stars */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.35, duration: 0.7 }}
-            className="flex flex-col sm:flex-row sm:items-center gap-4"
-          >
-            <a
-              href="tel:+33XXXXXXXXX"
-              className="flex items-center gap-3 text-white/90 hover:text-white transition-colors group"
-            >
-              <div
-                className="w-10 h-10 flex items-center justify-center rounded-full"
-                style={{ backgroundColor: "rgba(201,98,60,0.15)", border: "1px solid rgba(201,98,60,0.3)" }}
-              >
-                <Phone size={16} style={{ color: "var(--terracotta)" }} />
-              </div>
-              <div>
-                <div className="text-xs text-white/50 mb-0.5">Appel gratuit</div>
-                <div className="font-semibold text-sm tracking-wide">06 XX XX XX XX</div>
-              </div>
-            </a>
-            <div className="hidden sm:block w-px h-8" style={{ backgroundColor: "rgba(255,255,255,0.15)" }} />
-            <div>
-              <div className="flex gap-0.5 mb-0.5">
-                {[1, 2, 3, 4, 5].map((i) => (
-                  <Star key={i} size={13} fill="var(--terracotta)" style={{ color: "var(--terracotta)" }} />
-                ))}
-              </div>
-              <div className="text-xs text-white/50">+50 avis clients Google</div>
-            </div>
-          </motion.div>
+          <div className="h-px w-8" style={{ backgroundColor: "var(--terracotta)" }} />
+          <span className="text-xs uppercase tracking-[0.25em] font-semibold" style={{ color: "var(--terracotta)" }}>
+            Depuis 2010 · L'Aigle, Orne
+          </span>
         </motion.div>
 
-        {/* RIGHT — Photo */}
-        <div className="relative lg:w-[48%] h-64 lg:h-auto overflow-hidden">
-          <motion.img
-            style={{ y: photoY }}
-            src="/images/chantier-15.jpg"
-            alt="Chantier rénovation Entre 4 Murs — Ferme normande, L'Aigle Orne"
-            className="absolute inset-0 w-full h-full object-cover"
-            initial={{ scale: 1.08, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
-          />
-          {/* Navy overlay gradient on left edge */}
-          <div
-            className="absolute inset-y-0 left-0 w-16 hidden lg:block"
-            style={{ background: "linear-gradient(to right, var(--navy), transparent)" }}
-          />
-          {/* Dark overlay for text readability */}
-          <div className="absolute inset-0" style={{ background: "rgba(31,47,58,0.12)" }} />
+        {/* Handwritten note */}
+        <motion.div
+          initial={{ opacity: 0, x: -10 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.7, delay: 0.3 }}
+          className="mb-4"
+          style={{
+            fontFamily: "var(--font-handwriting)",
+            fontSize: "1.2rem",
+            color: "rgba(201,98,60,0.8)",
+            transform: "rotate(-0.5deg)",
+          }}
+        >
+          votre artisan de confiance dans l'Orne
+        </motion.div>
 
-          {/* Artisan stamp */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.7, rotate: -15 }}
-            animate={{ opacity: 1, scale: 1, rotate: -8 }}
-            transition={{ delay: 1.6, duration: 1, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute top-8 right-8 hidden lg:block"
+        {/* Main title */}
+        <h1 className="mb-6 max-w-3xl">
+          {["Artisan peintre", "& plaquiste", "à L'Aigle,", "dans l'Orne."].map((word, wi) => (
+            <motion.span
+              key={wi}
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.45 + wi * 0.12, ease: [0.22, 1, 0.36, 1] }}
+              className="block"
+              style={{
+                fontSize: "clamp(2.2rem, 5.5vw, 4rem)",
+                lineHeight: 1.05,
+                fontFamily: "var(--font-serif)",
+                fontWeight: 700,
+                color: wi >= 2 ? "var(--terracotta)" : "white",
+              }}
+            >
+              {word}
+            </motion.span>
+          ))}
+        </h1>
+
+        {/* Subtitle */}
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.95 }}
+          className="text-sm mb-6 max-w-lg leading-relaxed"
+          style={{ color: "rgba(255,255,255,0.65)" }}
+        >
+          Rénovation intérieure de qualité. Travaux conformes DTU, assurance décennale,
+          aucun chantier sous-traité — votre projet entre les mains d'un artisan.
+        </motion.p>
+
+        {/* Trust badges */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 1.05 }}
+          className="flex flex-wrap gap-2 mb-6"
+        >
+          {badges.map(({ icon: Icon, label }) => (
+            <div
+              key={label}
+              className="flex items-center gap-2 px-3 py-1.5"
+              style={{
+                border: "1px solid rgba(201,98,60,0.35)",
+                backgroundColor: "rgba(201,98,60,0.1)",
+                backdropFilter: "blur(4px)",
+              }}
+            >
+              <Icon size={13} style={{ color: "var(--terracotta)" }} />
+              <span className="text-xs text-white/80 font-medium">{label}</span>
+            </div>
+          ))}
+        </motion.div>
+
+        {/* CTAs */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 1.15 }}
+          className="flex flex-col sm:flex-row gap-3 mb-8"
+        >
+          <motion.a
+            href="#contact"
+            whileHover={{ scale: 1.03, x: 4 }}
+            whileTap={{ scale: 0.97 }}
+            className="group inline-flex items-center justify-center gap-2 px-7 py-3.5 text-sm font-semibold text-white"
+            style={{ backgroundColor: "var(--terracotta)" }}
+            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "var(--terracotta-dark)")}
+            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "var(--terracotta)")}
           >
-            <svg width="112" height="112" viewBox="0 0 112 112" aria-hidden="true" style={{ color: "var(--terracotta)", opacity: 0.82 }}>
-              <defs>
-                <path id="stamp-arc" d="M56,56 m-41,0 a41,41 0 1,1 82,0 a41,41 0 1,1 -82,0" />
-              </defs>
-              <circle cx="56" cy="56" r="52" fill="none" stroke="currentColor" strokeWidth="1.5" strokeDasharray="3 2.5" />
-              <circle cx="56" cy="56" r="44" fill="none" stroke="currentColor" strokeWidth="0.6" />
-              <text fontSize="7.2" fontFamily="Inter, sans-serif" fontWeight="600" fill="currentColor" letterSpacing="2.8">
-                <textPath href="#stamp-arc">ARTISAN PEINTRE · L'AIGLE 61 · DEPUIS 2010 ·&nbsp;&nbsp;</textPath>
-              </text>
-              <text x="56" y="51" textAnchor="middle" fontSize="15" fontFamily="'Caveat', cursive" fontWeight="700" fill="currentColor">Guillaume</text>
-              <text x="56" y="67" textAnchor="middle" fontSize="15" fontFamily="'Caveat', cursive" fontWeight="700" fill="currentColor">Etasse</text>
-              <line x1="38" y1="58" x2="45" y2="58" stroke="currentColor" strokeWidth="0.8" />
-              <line x1="67" y1="58" x2="74" y2="58" stroke="currentColor" strokeWidth="0.8" />
-            </svg>
-          </motion.div>
+            Demander un devis gratuit
+            <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+          </motion.a>
 
-          {/* Floating project badge */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.2, duration: 0.6 }}
-            className="absolute bottom-6 left-6 right-6 lg:left-auto lg:right-6 lg:max-w-[220px]"
+          <motion.a
+            href="#realisations"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.97 }}
+            className="inline-flex items-center justify-center gap-2 px-7 py-3.5 text-sm font-medium text-white transition-all duration-200"
+            style={{ border: "1px solid rgba(255,255,255,0.3)", backdropFilter: "blur(4px)" }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.borderColor = "rgba(201,98,60,0.6)";
+              e.currentTarget.style.color = "var(--terracotta)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.borderColor = "rgba(255,255,255,0.3)";
+              e.currentTarget.style.color = "white";
+            }}
+          >
+            Voir nos réalisations
+          </motion.a>
+        </motion.div>
+
+        {/* Phone + stars */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.35, duration: 0.7 }}
+          className="flex flex-col sm:flex-row sm:items-center gap-4"
+        >
+          <a
+            href="tel:+33XXXXXXXXX"
+            className="flex items-center gap-3 text-white/90 hover:text-white transition-colors"
           >
             <div
-              className="p-4 backdrop-blur-sm"
-              style={{ backgroundColor: "rgba(31,47,58,0.92)", border: "1px solid rgba(201,98,60,0.3)" }}
+              className="w-10 h-10 flex items-center justify-center"
+              style={{ backgroundColor: "rgba(201,98,60,0.2)", border: "1px solid rgba(201,98,60,0.4)" }}
             >
-              <div className="text-[10px] uppercase tracking-widest text-[#C9623C] font-semibold mb-1">
-                Chantier récent
-              </div>
-              <div className="text-sm font-semibold text-white">
-                Rénovation complète · L'Aigle
-              </div>
-              <div className="text-xs text-white/50 mt-1">
-                Peinture · Placo · Carrelage
-              </div>
+              <Phone size={16} style={{ color: "var(--terracotta)" }} />
             </div>
-          </motion.div>
-        </div>
-      </div>
+            <div>
+              <div className="text-xs text-white/50 mb-0.5">Appel gratuit</div>
+              <div className="font-semibold text-sm tracking-wide">06 XX XX XX XX</div>
+            </div>
+          </a>
+          <div className="hidden sm:block w-px h-8" style={{ backgroundColor: "rgba(255,255,255,0.15)" }} />
+          <div>
+            <div className="flex gap-0.5 mb-0.5">
+              {[1, 2, 3, 4, 5].map((i) => (
+                <Star key={i} size={13} fill="var(--terracotta)" style={{ color: "var(--terracotta)" }} />
+              ))}
+            </div>
+            <div className="text-xs text-white/50">+50 avis clients Google</div>
+          </div>
+        </motion.div>
+      </motion.div>
 
       {/* Stats strip */}
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.4, duration: 0.7 }}
-        className="w-full grid grid-cols-2 md:grid-cols-4"
-        style={{ backgroundColor: "var(--beige-light)" }}
+        transition={{ delay: 1.5, duration: 0.7 }}
+        className="relative z-10 w-full grid grid-cols-2 md:grid-cols-4"
+        style={{ backgroundColor: "rgba(15,25,33,0.85)", backdropFilter: "blur(12px)", borderTop: "1px solid rgba(255,255,255,0.08)" }}
       >
         {stats.map((stat, i) => (
           <div
             key={stat.label}
             className="flex flex-col items-center justify-center py-4 px-4 text-center"
-            style={{ borderRight: i < 3 ? "1px solid var(--beige)" : "none" }}
+            style={{ borderRight: i < 3 ? "1px solid rgba(255,255,255,0.07)" : "none" }}
           >
             <div
-              className="font-bold mb-1"
-              style={{
-                fontFamily: "var(--font-serif)",
-                fontSize: "1.6rem",
-                color: "var(--navy)",
-              }}
+              className="font-bold mb-0.5"
+              style={{ fontFamily: "var(--font-serif)", fontSize: "1.6rem", color: "white" }}
             >
               {stat.value}
-              <span style={{ color: "var(--terracotta)", fontSize: "1.4rem" }}>{stat.unit}</span>
+              <span style={{ color: "var(--terracotta)", fontSize: "1.3rem" }}>{stat.unit}</span>
             </div>
-            <div className="text-xs font-medium uppercase tracking-wider" style={{ color: "var(--text-mid)" }}>
+            <div className="text-xs font-medium uppercase tracking-wider" style={{ color: "rgba(255,255,255,0.45)" }}>
               {stat.label}
             </div>
           </div>
