@@ -63,7 +63,7 @@ export default function TestimonialsSection() {
   return (
     <section
       id="avis"
-      className="relative py-24"
+      className="relative py-16"
       style={{ backgroundColor: "var(--beige-light)" }}
     >
       <div className="max-w-7xl mx-auto px-6">
@@ -73,7 +73,7 @@ export default function TestimonialsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="text-center mb-16"
+          className="text-center mb-10"
         >
           <div className="inline-flex items-center gap-3 mb-4">
             <div className="h-px w-8" style={{ backgroundColor: "var(--terracotta)" }} />
@@ -83,7 +83,7 @@ export default function TestimonialsSection() {
             <div className="h-px w-8" style={{ backgroundColor: "var(--terracotta)" }} />
           </div>
           <h2
-            className="text-4xl md:text-5xl mb-4"
+            className="text-3xl md:text-4xl mb-3"
             style={{ fontFamily: "var(--font-serif)", color: "var(--navy)" }}
           >
             Ce que disent{" "}
@@ -97,7 +97,7 @@ export default function TestimonialsSection() {
         </motion.div>
 
         {/* Testimonials grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mb-16">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3 mb-10">
           {testimonials.map((t, index) => (
             <motion.div
               key={index}
@@ -110,7 +110,7 @@ export default function TestimonialsSection() {
               <motion.div
                 whileHover={{ y: -4 }}
                 transition={{ duration: 0.3 }}
-                className="h-full p-7 flex flex-col transition-all duration-300"
+                className="h-full p-5 flex flex-col transition-all duration-300"
                 style={{
                   backgroundColor: "var(--white)",
                   border: "1px solid var(--beige)",
@@ -176,11 +176,11 @@ export default function TestimonialsSection() {
           {globalStats.map((stat, i) => (
             <div
               key={stat.label}
-              className="flex flex-col items-center justify-center py-8 px-4 text-center"
+              className="flex flex-col items-center justify-center py-5 px-4 text-center"
               style={{ backgroundColor: "var(--white)" }}
             >
               <div
-                className="font-bold text-5xl mb-1"
+                className="font-bold text-4xl mb-1"
                 style={{ fontFamily: "var(--font-serif)", color: "var(--navy)" }}
               >
                 {stat.value}

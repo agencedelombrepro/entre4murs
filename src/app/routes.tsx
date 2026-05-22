@@ -2,11 +2,36 @@ import React from "react";
 import { createBrowserRouter } from "react-router";
 import Home from "./pages/Home";
 import CityPage from "./pages/CityPage";
+import ServicePage from "./pages/ServicePage";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     Component: Home,
+  },
+  {
+    path: "/peinture-interieure",
+    element: <ServicePage service="peinture-interieure" />,
+  },
+  {
+    path: "/peinture-exterieure",
+    element: <ServicePage service="peinture-exterieure" />,
+  },
+  {
+    path: "/pose-placo-platrerie",
+    element: <ServicePage service="pose-placo" />,
+  },
+  {
+    path: "/renovation-interieure",
+    element: <ServicePage service="renovation-interieure" />,
+  },
+  {
+    path: "/ravalement-facade",
+    element: <ServicePage service="ravalement-facade" />,
+  },
+  {
+    path: "/enduits-finitions-decoratives",
+    element: <ServicePage service="enduits-finitions" />,
   },
   {
     path: "/peintre-laigle",

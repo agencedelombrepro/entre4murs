@@ -33,7 +33,6 @@ export default function HeroSection() {
       <div className="flex flex-col lg:flex-row flex-1 min-h-screen">
         {/* LEFT — Navy content */}
         <motion.div
-          style={{ y: contentY }}
           className="relative z-10 flex flex-col justify-center px-8 md:px-12 lg:px-16 pt-28 pb-16 lg:pt-0 lg:pb-0 lg:w-[52%]"
           style={{ backgroundColor: "var(--navy)", y: contentY }}
         >
@@ -42,7 +41,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="flex items-center gap-2 mb-8"
+            className="flex items-center gap-2 mb-5"
           >
             <div
               className="h-px w-8"
@@ -57,7 +56,7 @@ export default function HeroSection() {
           </motion.div>
 
           {/* Main title */}
-          <h1 className="mb-6 text-white">
+          <h1 className="mb-4 text-white">
             {titleWords.map((word, wi) => (
               <motion.span
                 key={wi}
@@ -70,7 +69,7 @@ export default function HeroSection() {
                 }}
                 className="block"
                 style={{
-                  fontSize: "clamp(2.4rem, 5vw, 3.8rem)",
+                  fontSize: "clamp(1.9rem, 4vw, 3rem)",
                   lineHeight: 1.1,
                   fontFamily: "var(--font-serif)",
                   fontWeight: 700,
@@ -87,7 +86,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.9 }}
-            className="text-base mb-8 max-w-md leading-relaxed"
+            className="text-sm mb-6 max-w-md leading-relaxed"
             style={{ color: "rgba(255,255,255,0.65)" }}
           >
             Rénovation intérieure de qualité. Travaux conformes DTU, assurance décennale,
@@ -99,7 +98,7 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 1.0 }}
-            className="flex flex-wrap gap-3 mb-10"
+            className="flex flex-wrap gap-2 mb-6"
           >
             {badges.map(({ icon: Icon, label }) => (
               <div
@@ -121,13 +120,13 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 1.15 }}
-            className="flex flex-col sm:flex-row gap-4 mb-12"
+            className="flex flex-col sm:flex-row gap-3 mb-8"
           >
             <motion.a
               href="#contact"
               whileHover={{ scale: 1.03, x: 4 }}
               whileTap={{ scale: 0.97 }}
-              className="group inline-flex items-center justify-center gap-2 px-7 py-4 text-sm font-semibold text-white transition-all duration-200"
+              className="group inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-semibold text-white transition-all duration-200"
               style={{ backgroundColor: "var(--terracotta)" }}
             >
               Demander un devis gratuit
@@ -138,7 +137,7 @@ export default function HeroSection() {
               href="#realisations"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.97 }}
-              className="inline-flex items-center justify-center gap-2 px-7 py-4 text-sm font-medium text-white transition-all duration-200"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-medium text-white transition-all duration-200"
               style={{ border: "1px solid rgba(255,255,255,0.25)" }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.borderColor = "rgba(201,98,60,0.6)";
@@ -242,14 +241,14 @@ export default function HeroSection() {
         {stats.map((stat, i) => (
           <div
             key={stat.label}
-            className="flex flex-col items-center justify-center py-6 px-4 text-center"
+            className="flex flex-col items-center justify-center py-4 px-4 text-center"
             style={{ borderRight: i < 3 ? "1px solid var(--beige)" : "none" }}
           >
             <div
               className="font-bold mb-1"
               style={{
                 fontFamily: "var(--font-serif)",
-                fontSize: "2rem",
+                fontSize: "1.6rem",
                 color: "var(--navy)",
               }}
             >

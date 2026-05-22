@@ -43,7 +43,7 @@ const reasons = [
 export default function WhySection() {
   return (
     <section
-      className="relative py-24 overflow-hidden"
+      className="relative py-16 overflow-hidden"
       style={{ backgroundColor: "var(--navy)" }}
     >
       {/* Subtle texture overlay */}
@@ -62,7 +62,7 @@ export default function WhySection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="mb-16"
+          className="mb-10"
         >
           <div className="flex items-center gap-3 mb-4">
             <div className="h-px w-8" style={{ backgroundColor: "var(--terracotta)" }} />
@@ -75,7 +75,7 @@ export default function WhySection() {
           </div>
           <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
             <h2
-              className="text-4xl md:text-5xl max-w-2xl leading-tight text-white"
+              className="text-3xl md:text-4xl max-w-2xl leading-tight text-white"
               style={{ fontFamily: "var(--font-serif)" }}
             >
               Parce que vos travaux méritent{" "}
@@ -91,7 +91,7 @@ export default function WhySection() {
         </motion.div>
 
         {/* Reasons grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px mb-20" style={{ backgroundColor: "rgba(255,255,255,0.06)" }}>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px mb-12" style={{ backgroundColor: "rgba(255,255,255,0.06)" }}>
           {reasons.map((reason, index) => (
             <motion.div
               key={reason.title}
@@ -99,7 +99,7 @@ export default function WhySection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
-              className="group p-8 transition-all duration-300 relative"
+              className="group p-5 transition-all duration-300 relative"
               style={{ backgroundColor: "var(--navy)" }}
               onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "rgba(45,69,87,0.5)")}
               onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "var(--navy)")}
@@ -109,16 +109,16 @@ export default function WhySection() {
                 style={{ backgroundColor: "var(--terracotta)" }}
               />
               <div
-                className="w-12 h-12 flex items-center justify-center mb-5 transition-all duration-300"
+                className="w-9 h-9 flex items-center justify-center mb-4 transition-all duration-300"
                 style={{
                   backgroundColor: "rgba(201,98,60,0.1)",
                   border: "1px solid rgba(201,98,60,0.25)",
                 }}
               >
-                <reason.icon size={22} style={{ color: "var(--terracotta)" }} />
+                <reason.icon size={16} style={{ color: "var(--terracotta)" }} />
               </div>
               <h3
-                className="text-lg font-bold text-white mb-3"
+                className="text-sm font-bold text-white mb-2"
                 style={{ fontFamily: "var(--font-serif)" }}
               >
                 {reason.title}
@@ -136,7 +136,7 @@ export default function WhySection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="relative max-w-4xl mx-auto p-10 md:p-14"
+          className="relative max-w-4xl mx-auto p-7 md:p-10"
           style={{
             borderLeft: "3px solid var(--terracotta)",
             backgroundColor: "rgba(255,255,255,0.04)",
@@ -149,7 +149,7 @@ export default function WhySection() {
             "
           </div>
           <blockquote
-            className="text-xl md:text-2xl text-white leading-relaxed mb-8"
+            className="text-base md:text-lg text-white leading-relaxed mb-6"
             style={{ fontFamily: "var(--font-serif)" }}
           >
             Nous ne promettons que ce que nous pouvons tenir. Chaque chantier est une
@@ -157,7 +157,7 @@ export default function WhySection() {
           </blockquote>
           <div className="flex items-center gap-4">
             <div
-              className="w-14 h-14 flex items-center justify-center text-xl font-bold flex-shrink-0"
+              className="w-10 h-10 flex items-center justify-center text-base font-bold flex-shrink-0"
               style={{
                 backgroundColor: "rgba(201,98,60,0.15)",
                 border: "1px solid rgba(201,98,60,0.3)",

@@ -38,7 +38,7 @@ export default function PortfolioSection() {
   return (
     <section
       id="realisations"
-      className="relative py-24"
+      className="relative py-16"
       style={{ backgroundColor: "var(--off-white)" }}
     >
       <div className="max-w-7xl mx-auto px-6">
@@ -48,7 +48,7 @@ export default function PortfolioSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="mb-12"
+          className="mb-8"
         >
           <div className="flex items-center gap-3 mb-4">
             <div className="h-px w-8" style={{ backgroundColor: "var(--terracotta)" }} />
@@ -58,7 +58,7 @@ export default function PortfolioSection() {
           </div>
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
             <h2
-              className="text-4xl md:text-5xl leading-tight"
+              className="text-3xl md:text-4xl leading-tight"
               style={{ fontFamily: "var(--font-serif)", color: "var(--navy)" }}
             >
               Plus de 500 chantiers{" "}
@@ -97,7 +97,7 @@ export default function PortfolioSection() {
         </motion.div>
 
         {/* Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-3">
           <AnimatePresence mode="popLayout">
             {filtered.map((project, i) => (
               <motion.div
@@ -147,7 +147,7 @@ export default function PortfolioSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="mt-12 text-center"
+          className="mt-8 text-center"
         >
           <p className="text-sm mb-4" style={{ color: "var(--text-gray)" }}>
             Un projet similaire ? Parlons-en.
@@ -156,7 +156,7 @@ export default function PortfolioSection() {
             href="#contact"
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}
-            className="inline-flex items-center gap-2 px-8 py-4 text-sm font-semibold text-white transition-all duration-200"
+            className="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-white transition-all duration-200"
             style={{ backgroundColor: "var(--terracotta)" }}
             onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "var(--terracotta-dark)")}
             onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "var(--terracotta)")}

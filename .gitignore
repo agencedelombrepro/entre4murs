@@ -29,6 +29,11 @@ pnpm-debug.log*
 *.sw?
 Thumbs.db
 
+# Sensitive documents
+src/imports/*.pdf
+src/imports/CONTRAT_*
+src/imports/Analyse_*
+
 # TypeScript
 *.tsbuildinfo
 

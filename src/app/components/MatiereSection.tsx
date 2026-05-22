@@ -40,7 +40,7 @@ export default function MatiereSection() {
   return (
     <section
       ref={ref}
-      className="relative py-24 overflow-hidden"
+      className="relative py-16 overflow-hidden"
       style={{ backgroundColor: "var(--off-white)" }}
     >
       <div className="max-w-7xl mx-auto px-6">
@@ -50,7 +50,7 @@ export default function MatiereSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="text-center mb-16"
+          className="text-center mb-10"
         >
           <div className="inline-flex items-center gap-3 mb-4">
             <div className="h-px w-8" style={{ backgroundColor: "var(--terracotta)" }} />
@@ -63,7 +63,7 @@ export default function MatiereSection() {
             <div className="h-px w-8" style={{ backgroundColor: "var(--terracotta)" }} />
           </div>
           <h2
-            className="text-4xl md:text-5xl lg:text-6xl mb-4"
+            className="text-3xl md:text-4xl mb-3"
             style={{ fontFamily: "var(--font-serif)", color: "var(--navy)" }}
           >
             La matière au service
@@ -78,7 +78,7 @@ export default function MatiereSection() {
         </motion.div>
 
         {/* Cards */}
-        <div className="grid md:grid-cols-3 gap-6 mb-20">
+        <div className="grid md:grid-cols-3 gap-4 mb-12">
           {matieres.map((m, i) => (
             <motion.div
               key={m.id}
@@ -87,7 +87,7 @@ export default function MatiereSection() {
               viewport={{ once: true }}
               transition={{ duration: 0.7, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
               className="group relative overflow-hidden"
-              style={{ height: 420 }}
+              style={{ height: 300 }}
             >
               {/* Photo */}
               <div className="absolute inset-0 overflow-hidden">
@@ -109,7 +109,7 @@ export default function MatiereSection() {
               />
 
               {/* Content */}
-              <div className="absolute bottom-0 left-0 right-0 p-7">
+              <div className="absolute bottom-0 left-0 right-0 p-5">
                 <div
                   className="w-10 h-0.5 mb-4 transition-all duration-500 group-hover:w-16"
                   style={{ backgroundColor: m.accent }}
@@ -121,7 +121,7 @@ export default function MatiereSection() {
                   {m.subtitle}
                 </div>
                 <h3
-                  className="text-2xl font-bold text-white mb-2"
+                  className="text-xl font-bold text-white mb-1"
                   style={{ fontFamily: "var(--font-serif)" }}
                 >
                   {m.title}
@@ -145,7 +145,7 @@ export default function MatiereSection() {
         {/* Editorial quote */}
         <motion.div
           style={{ y: quoteY }}
-          className="relative max-w-4xl mx-auto text-center py-12"
+          className="relative max-w-4xl mx-auto text-center py-8"
         >
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -160,7 +160,7 @@ export default function MatiereSection() {
               "
             </div>
             <blockquote
-              className="text-2xl md:text-3xl lg:text-4xl font-bold leading-tight mb-6 relative z-10"
+              className="text-xl md:text-2xl font-bold leading-tight mb-5 relative z-10"
               style={{ fontFamily: "var(--font-serif)", color: "var(--navy)" }}
             >
               Le vrai luxe, c'est la qualité{" "}
