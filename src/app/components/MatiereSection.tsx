@@ -1,9 +1,11 @@
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
+import { Paintbrush2, Layers, Home } from "lucide-react";
 
 const matieres = [
   {
     id: "peinture",
+    icon: Paintbrush2,
     title: "Peinture",
     subtitle: "Intérieure & extérieure",
     description: "Des finitions impeccables, couche après couche. Conseils couleur, peintures écologiques, préparation des supports.",
@@ -12,6 +14,7 @@ const matieres = [
   },
   {
     id: "placo",
+    icon: Layers,
     title: "Placo",
     subtitle: "Cloisons & doublages",
     description: "La matière brute, sculptée avec précision. Plafonds suspendus, isolation intégrée, finitions prêtes à peindre.",
@@ -20,6 +23,7 @@ const matieres = [
   },
   {
     id: "renovation",
+    icon: Home,
     title: "Rénovation",
     subtitle: "Intérieure complète",
     description: "Révéler les espaces, sublimer les volumes. De la conception à la réalisation, un accompagnement sur-mesure.",
@@ -107,6 +111,17 @@ export default function MatiereSection() {
                   background: "linear-gradient(to top, rgba(31,47,58,0.92) 30%, rgba(31,47,58,0.2) 70%, transparent 100%)",
                 }}
               />
+
+              {/* Icon badge top-left */}
+              <div
+                className="absolute top-4 left-4 w-9 h-9 flex items-center justify-center z-10 backdrop-blur-sm"
+                style={{
+                  backgroundColor: "rgba(201,98,60,0.85)",
+                  border: "1px solid rgba(255,255,255,0.2)",
+                }}
+              >
+                <m.icon size={16} color="white" />
+              </div>
 
               {/* Content */}
               <div className="absolute bottom-0 left-0 right-0 p-5">

@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import { Star } from "lucide-react";
+import { Star, Quote, ThumbsUp, Users, Shield } from "lucide-react";
 
 const testimonials = [
   {
@@ -53,10 +53,10 @@ const testimonials = [
 ];
 
 const globalStats = [
-  { value: "5.0", label: "Note moyenne Google" },
-  { value: "98%", label: "Clients satisfaits" },
-  { value: "85%", label: "Clients recommandent" },
-  { value: "0", label: "Litige en 16 ans" },
+  { value: "5.0", label: "Note moyenne Google", icon: Star },
+  { value: "98%", label: "Clients satisfaits", icon: ThumbsUp },
+  { value: "85%", label: "Clients recommandent", icon: Users },
+  { value: "0", label: "Litige en 16 ans", icon: Shield },
 ];
 
 export default function TestimonialsSection() {
@@ -125,16 +125,19 @@ export default function TestimonialsSection() {
                   e.currentTarget.style.boxShadow = "0 1px 4px rgba(31,47,58,0.04)";
                 }}
               >
-                {/* Stars */}
-                <div className="flex gap-0.5 mb-4">
-                  {[...Array(t.rating)].map((_, i) => (
-                    <Star key={i} size={14} fill="var(--terracotta)" style={{ color: "var(--terracotta)" }} />
-                  ))}
+                {/* Stars + quote icon */}
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex gap-0.5">
+                    {[...Array(t.rating)].map((_, i) => (
+                      <Star key={i} size={13} fill="var(--terracotta)" style={{ color: "var(--terracotta)" }} />
+                    ))}
+                  </div>
+                  <Quote size={20} style={{ color: "rgba(201,98,60,0.18)" }} />
                 </div>
 
                 {/* Quote */}
                 <p className="text-sm leading-relaxed italic flex-1 mb-5" style={{ color: "var(--text-mid)" }}>
-                  "{t.text}"
+                  {t.text}
                 </p>
 
                 {/* Project tag */}
@@ -173,12 +176,13 @@ export default function TestimonialsSection() {
           className="grid grid-cols-2 md:grid-cols-4 gap-px overflow-hidden"
           style={{ backgroundColor: "var(--beige)", border: "1px solid var(--beige)" }}
         >
-          {globalStats.map((stat, i) => (
+          {globalStats.map((stat) => (
             <div
               key={stat.label}
               className="flex flex-col items-center justify-center py-5 px-4 text-center"
               style={{ backgroundColor: "var(--white)" }}
             >
+              <stat.icon size={14} style={{ color: "var(--terracotta)" }} className="mb-2" />
               <div
                 className="font-bold text-4xl mb-1"
                 style={{ fontFamily: "var(--font-serif)", color: "var(--navy)" }}
