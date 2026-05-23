@@ -203,12 +203,12 @@ export default function ZonesSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, delay: 0.15 }}
-          className="grid lg:grid-cols-[1fr,340px] gap-4"
+          style={{ display: "grid", gridTemplateColumns: "1fr 320px", gap: "16px" }}
         >
           {/* ── Leaflet Map ── */}
           <div
             style={{
-              height: 460,
+              height: 400,
               border: "1px solid var(--beige)",
               overflow: "hidden",
             }}
@@ -222,7 +222,7 @@ export default function ZonesSection() {
             >
               <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributeurs'
-                url="https://tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png"
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               />
 
               {/* 50 km radius circle */}
