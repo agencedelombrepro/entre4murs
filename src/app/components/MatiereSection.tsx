@@ -91,7 +91,7 @@ export default function MatiereSection() {
               viewport={{ once: true }}
               transition={{ duration: 0.7, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
               className="group relative overflow-hidden"
-              style={{ height: 300 }}
+              style={{ height: 210 }}
             >
               {/* Photo */}
               <div className="absolute inset-0 overflow-hidden">
