@@ -1,5 +1,4 @@
-import { motion, useInView } from "motion/react";
-import { useRef } from "react";
+import { motion } from "motion/react";
 import { MessageCircle, Search, FileCheck, Paintbrush2, ArrowRight } from "lucide-react";
 
 const steps = [
@@ -7,223 +6,170 @@ const steps = [
     number: "01",
     icon: MessageCircle,
     title: "Premier contact",
-    description: "Appelez-nous ou remplissez le formulaire. Nous répondons sous 24h et planifions une visite.",
+    description: "Appelez-nous ou remplissez le formulaire. Nous répondons sous 24h et planifions une visite à votre convenance.",
     detail: "Gratuit & sans engagement",
   },
   {
     number: "02",
     icon: Search,
     title: "Visite & diagnostic",
-    description: "Guillaume se déplace sur place pour examiner les supports et comprendre vos attentes.",
+    description: "Guillaume se déplace sur place pour examiner les supports, prendre les mesures et comprendre vos attentes.",
     detail: "Déplacement offert",
   },
   {
     number: "03",
     icon: FileCheck,
     title: "Devis détaillé",
-    description: "Vous recevez un devis clair, poste par poste, sous 48h. Aucune mauvaise surprise.",
+    description: "Vous recevez un devis clair, poste par poste, sous 48h. Aucune mauvaise surprise : tout est écrit noir sur blanc.",
     detail: "Remis sous 48h",
   },
   {
     number: "04",
     icon: Paintbrush2,
     title: "Réalisation",
-    description: "Guillaume intervient lui-même avec son équipe. Chantier propre, suivi régulier.",
+    description: "Guillaume intervient lui-même, avec son équipe. Chantier propre, suivi régulier, réception avec vous à la fin.",
     detail: "Sans sous-traitance",
   },
 ];
 
 export default function ProcessSection() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-80px" });
-
   return (
-    <section
-      ref={ref}
-      className="relative py-20 overflow-hidden"
-      style={{ backgroundColor: "var(--navy)" }}
-    >
-      {/* Radial glow */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: "radial-gradient(ellipse 80% 60% at 50% 100%, rgba(201,98,60,0.07) 0%, transparent 70%)",
-        }}
-      />
+    <section className="relative overflow-hidden" style={{ backgroundColor: "var(--off-white)" }}>
 
-      <div className="max-w-6xl mx-auto px-6 relative z-10">
-        {/* Header */}
+      {/* Header */}
+      <div className="max-w-7xl mx-auto px-6 pt-16 pb-10">
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-20"
+          className="flex flex-col md:flex-row md:items-end md:justify-between gap-4"
         >
-          <div className="inline-flex items-center gap-3 mb-4">
-            <div className="h-px w-8" style={{ backgroundColor: "var(--terracotta)" }} />
-            <span className="text-xs uppercase tracking-[0.22em] font-semibold" style={{ color: "var(--terracotta)" }}>
-              Comment ça marche
-            </span>
-            <div className="h-px w-8" style={{ backgroundColor: "var(--terracotta)" }} />
-          </div>
-          <h2
-            className="text-3xl md:text-4xl text-white"
-            style={{ fontFamily: "var(--font-serif)" }}
-          >
-            De la demande au{" "}
-            <em className="not-italic" style={{ color: "var(--terracotta)" }}>
-              chantier terminé
-            </em>
-          </h2>
-        </motion.div>
-
-        {/* Frise */}
-        <div className="relative">
-
-          {/* ── Animated line ── */}
-          <div className="absolute top-[2.75rem] left-[calc(12.5%+2.25rem)] right-[calc(12.5%+2.25rem)] hidden lg:block pointer-events-none">
-            <svg
-              width="100%" height="2"
-              viewBox="0 0 1000 2"
-              preserveAspectRatio="none"
-              overflow="visible"
+          <div>
+            <div className="flex items-center gap-3 mb-3">
+              <div className="h-px w-8" style={{ backgroundColor: "var(--terracotta)" }} />
+              <span className="text-xs uppercase tracking-[0.22em] font-semibold" style={{ color: "var(--terracotta)" }}>
+                Comment ça marche
+              </span>
+            </div>
+            <h2
+              className="text-3xl md:text-4xl leading-tight"
+              style={{ fontFamily: "var(--font-serif)", color: "var(--navy)" }}
             >
-              <motion.path
-                d="M 0,1 L 1000,1"
-                stroke="rgba(201,98,60,0.35)"
-                strokeWidth="1"
-                strokeDasharray="7 5"
-                fill="none"
-                initial={{ pathLength: 0, opacity: 0 }}
-                animate={isInView ? { pathLength: 1, opacity: 1 } : {}}
-                transition={{ duration: 1.8, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
-              />
-            </svg>
+              De la demande au{" "}
+              <em className="not-italic" style={{ color: "var(--terracotta)" }}>
+                chantier terminé
+              </em>
+            </h2>
           </div>
+          <p className="text-sm max-w-xs" style={{ color: "var(--text-mid)" }}>
+            Un processus clair, sans surprise, du premier appel jusqu'à la remise des clés.
+          </p>
+        </motion.div>
+      </div>
 
-          {/* ── Steps ── */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-2">
-            {steps.map((step, i) => (
-              <div key={step.number} className="flex flex-col items-center text-center">
+      {/* Steps — full-width typographic strips */}
+      <div style={{ borderTop: "1px solid var(--beige)" }}>
+        {steps.map((step, i) => (
+          <motion.div
+            key={step.number}
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.55, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
+            className="group relative"
+            style={{ borderBottom: "1px solid var(--beige)" }}
+          >
+            {/* Hover left accent */}
+            <div
+              className="absolute left-0 top-0 bottom-0 w-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              style={{ backgroundColor: "var(--terracotta)" }}
+            />
 
-                {/* Circle */}
-                <div className="relative mb-8">
-                  {/* Pulsing outer ring */}
-                  <motion.div
-                    className="absolute rounded-full"
-                    style={{
-                      inset: "-8px",
-                      border: "1px solid rgba(201,98,60,0.22)",
-                      borderRadius: "50%",
-                    }}
-                    animate={isInView ? {
-                      scale: [1, 1.25, 1],
-                      opacity: [0.4, 0, 0.4],
-                    } : {}}
-                    transition={{
-                      duration: 2.8,
-                      delay: 1.4 + i * 0.25,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    }}
-                  />
+            <div className="max-w-7xl mx-auto px-6">
+              <div className="flex items-center gap-6 md:gap-10 py-6 md:py-7">
 
-                  {/* Main circle */}
-                  <motion.div
-                    initial={{ scale: 0, rotate: -90 }}
-                    animate={isInView ? { scale: 1, rotate: 0 } : {}}
-                    transition={{
-                      type: "spring",
-                      stiffness: 260,
-                      damping: 18,
-                      delay: 0.7 + i * 0.18,
-                    }}
-                    className="w-[3.5rem] h-[3.5rem] rounded-full flex items-center justify-center relative z-10"
-                    style={{
-                      backgroundColor: "rgba(201,98,60,0.12)",
-                      border: "1.5px solid var(--terracotta)",
-                    }}
-                  >
-                    <step.icon size={20} style={{ color: "var(--terracotta)" }} />
-                  </motion.div>
-
-                  {/* Number badge */}
-                  <motion.div
-                    initial={{ scale: 0, opacity: 0 }}
-                    animate={isInView ? { scale: 1, opacity: 1 } : {}}
-                    transition={{ delay: 1.0 + i * 0.18, duration: 0.3 }}
-                    className="absolute -top-2 -right-2 w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-bold z-20"
-                    style={{ backgroundColor: "var(--terracotta)", color: "white" }}
-                  >
-                    {i + 1}
-                  </motion.div>
+                {/* Big number */}
+                <div
+                  className="flex-shrink-0 w-16 md:w-24 text-right leading-none select-none"
+                  style={{
+                    fontFamily: "var(--font-serif)",
+                    fontSize: "clamp(2.8rem, 5vw, 4.5rem)",
+                    fontWeight: 700,
+                    color: "var(--terracotta)",
+                    opacity: 0.22,
+                  }}
+                >
+                  {step.number}
                 </div>
 
-                {/* Content */}
-                <motion.div
-                  initial={{ opacity: 0, y: 28 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.6, delay: 0.9 + i * 0.18, ease: [0.22, 1, 0.36, 1] }}
-                >
-                  {/* Large ghost number */}
+                {/* Thin vertical divider */}
+                <div className="hidden md:block w-px self-stretch" style={{ backgroundColor: "var(--beige)" }} />
+
+                {/* Icon + title block */}
+                <div className="flex items-center gap-4 flex-shrink-0 w-48 md:w-56">
                   <div
-                    className="text-6xl font-bold leading-none mb-2 select-none"
+                    className="w-9 h-9 flex items-center justify-center flex-shrink-0 transition-all duration-300 group-hover:border-[var(--terracotta)]"
                     style={{
-                      fontFamily: "var(--font-serif)",
-                      color: "rgba(255,255,255,0.04)",
-                      lineHeight: 1,
+                      border: "1px solid var(--beige)",
+                      backgroundColor: "var(--white)",
                     }}
                   >
-                    {step.number}
+                    <step.icon size={16} style={{ color: "var(--navy)" }} />
                   </div>
-
                   <h3
-                    className="text-sm font-bold text-white mb-2"
-                    style={{ fontFamily: "var(--font-serif)" }}
+                    className="text-sm font-bold leading-snug"
+                    style={{ fontFamily: "var(--font-serif)", color: "var(--navy)" }}
                   >
                     {step.title}
                   </h3>
-                  <p
-                    className="text-xs leading-relaxed mb-4 max-w-[180px] mx-auto"
-                    style={{ color: "rgba(255,255,255,0.48)" }}
-                  >
-                    {step.description}
-                  </p>
-                  <div
-                    className="inline-block text-[9px] uppercase tracking-widest font-semibold px-2.5 py-1"
-                    style={{
-                      backgroundColor: "rgba(201,98,60,0.1)",
-                      color: "var(--terracotta)",
-                      border: "1px solid rgba(201,98,60,0.25)",
-                    }}
-                  >
-                    {step.detail}
-                  </div>
-                </motion.div>
-              </div>
-            ))}
-          </div>
-        </div>
+                </div>
 
-        {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5, delay: 1.6 }}
-          className="mt-16 text-center"
-        >
-          <a
-            href="#contact"
-            className="group inline-flex items-center gap-2 px-7 py-3.5 text-sm font-semibold text-white transition-all duration-200"
-            style={{ backgroundColor: "var(--terracotta)" }}
-            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "var(--terracotta-dark)")}
-            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "var(--terracotta)")}
-          >
-            Démarrer votre projet — devis gratuit
-            <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform" />
-          </a>
-        </motion.div>
+                {/* Description */}
+                <p
+                  className="flex-1 text-sm leading-relaxed hidden md:block"
+                  style={{ color: "var(--text-mid)" }}
+                >
+                  {step.description}
+                </p>
+
+                {/* Badge */}
+                <div
+                  className="flex-shrink-0 text-[10px] uppercase tracking-widest font-semibold px-3 py-1.5 whitespace-nowrap"
+                  style={{
+                    backgroundColor: "rgba(201,98,60,0.08)",
+                    color: "var(--terracotta)",
+                    border: "1px solid rgba(201,98,60,0.2)",
+                  }}
+                >
+                  {step.detail}
+                </div>
+
+              </div>
+            </div>
+          </motion.div>
+        ))}
       </div>
+
+      {/* CTA */}
+      <div className="max-w-7xl mx-auto px-6 py-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <p className="text-sm" style={{ color: "var(--text-gray)" }}>
+          Prêt à démarrer ?
+        </p>
+        <motion.a
+          href="#contact"
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.97 }}
+          className="group inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-white transition-all duration-200"
+          style={{ backgroundColor: "var(--terracotta)" }}
+          onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "var(--terracotta-dark)")}
+          onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "var(--terracotta)")}
+        >
+          Démarrer votre projet — devis gratuit
+          <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform" />
+        </motion.a>
+      </div>
+
     </section>
   );
 }
