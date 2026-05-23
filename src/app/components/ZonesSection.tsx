@@ -1,8 +1,8 @@
 import { motion, AnimatePresence } from "motion/react";
 import { Link } from "react-router";
 import { ArrowRight } from "lucide-react";
-import { useState, useEffect } from "react";
-import { MapContainer, TileLayer, Circle, CircleMarker, Tooltip, useMap } from "react-leaflet";
+import { useState } from "react";
+import { MapContainer, TileLayer, Circle, CircleMarker, Tooltip } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "./ZonesMap.css";
 
@@ -165,15 +165,6 @@ const zones = [
   },
 ];
 
-function MapFitter() {
-  const map = useMap();
-  useEffect(() => {
-    const bounds = zones.map((z) => [z.lat, z.lng] as [number, number]);
-    map.fitBounds(bounds, { padding: [28, 28] });
-  }, [map]);
-  return null;
-}
-
 export default function ZonesSection() {
   const [selected, setSelected] = useState(zones[0]);
 
@@ -223,15 +214,15 @@ export default function ZonesSection() {
             }}
           >
             <MapContainer
-              center={LAIGLE}
+              center={[48.66, 0.46]}
               zoom={10}
               style={{ height: "100%", width: "100%" }}
               scrollWheelZoom={false}
               zoomControl={true}
             >
               <TileLayer
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
-                url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributeurs'
+                url="https://tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png"
               />
 
               {/* 50 km radius circle */}
@@ -276,7 +267,6 @@ export default function ZonesSection() {
                 );
               })}
 
-              <MapFitter />
             </MapContainer>
           </div>
 
