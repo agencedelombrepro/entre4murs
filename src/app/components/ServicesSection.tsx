@@ -4,52 +4,52 @@ import { Link } from "react-router";
 
 const services = [
   {
+    number: "01",
     icon: Paintbrush,
     title: "Peinture intérieure",
     href: "/peinture-interieure",
-    description:
-      "Transformation complète de vos espaces de vie. Préparation minutieuse des supports, application experte, finitions haut de gamme.",
-    features: ["Préparation des supports", "Peintures écologiques Sikkens", "Finitions décoratives", "Conseils couleur"],
+    description: "Préparation des supports, peintures Sikkens, finitions décoratives et conseils couleur.",
+    tags: ["Finitions haut de gamme", "Peintures écologiques"],
   },
   {
+    number: "02",
     icon: Building,
     title: "Peinture extérieure",
     href: "/peinture-exterieure",
-    description:
-      "Protection durable et esthétique de vos façades. Travaux adaptés au climat normand, matériaux résistants aux intempéries.",
-    features: ["Ravalement de façade", "Traitement anti-mousse", "Peintures respirantes", "Garantie décennale"],
+    description: "Protection durable adaptée au climat normand. Traitements anti-mousse et peintures respirantes.",
+    tags: ["Garantie décennale", "Anti-mousse"],
   },
   {
+    number: "03",
     icon: Layers,
     title: "Pose de placo",
     href: "/pose-placo-platrerie",
-    description:
-      "Cloisonnement et aménagement d'espaces sur mesure. Isolation phonique et thermique, finitions prêtes à peindre.",
-    features: ["Cloisons & doublages", "Plafonds suspendus", "Isolation intégrée", "Découpes précises"],
+    description: "Cloisons, doublages et plafonds suspendus avec isolation phonique et thermique intégrée.",
+    tags: ["Isolation intégrée", "Finitions à peindre"],
   },
   {
+    number: "04",
     icon: Home,
     title: "Rénovation intérieure",
     href: "/renovation-interieure",
-    description:
-      "Réhabilitation complète de votre habitat. De la conception à la réalisation, un accompagnement sur-mesure pour chaque projet.",
-    features: ["Cuisine & salle de bain", "Parquets & revêtements", "Coordination métiers", "Suivi de chantier"],
+    description: "Réhabilitation complète — cuisine, salle de bain, coordination des corps de métier.",
+    tags: ["Coordination métiers", "Suivi de chantier"],
   },
   {
+    number: "05",
     icon: Hammer,
     title: "Ravalement de façade",
     href: "/ravalement-facade",
-    description:
-      "Remise à neuf de vos murs extérieurs. Diagnostic, traitement des pathologies, application d'enduits et peintures adaptés.",
-    features: ["Diagnostic façade", "Réparation fissures", "Enduits de façade", "Conformité DTU"],
+    description: "Diagnostic, traitement des fissures et pathologies, enduits et peintures de façade conformes DTU.",
+    tags: ["Conformité DTU", "Réparation fissures"],
   },
   {
+    number: "06",
     icon: Sparkles,
-    title: "Enduits & finitions",
+    title: "Enduits & finitions décoratives",
     href: "/enduits-finitions-decoratives",
-    description:
-      "Le détail qui fait la différence. Enduits décoratifs, effets matière, finitions contemporaines pour un rendu unique.",
-    features: ["Enduits à la chaux", "Béton ciré", "Stucco vénitien", "Textures personnalisées"],
+    description: "Enduits à la chaux, béton ciré, stucco vénitien — des textures uniques pour des espaces singuliers.",
+    tags: ["Béton ciré", "Stucco vénitien"],
   },
 ];
 
@@ -63,140 +63,131 @@ export default function ServicesSection() {
       <div className="max-w-7xl mx-auto px-6">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="mb-10"
+          transition={{ duration: 0.6 }}
+          className="mb-10 flex flex-col md:flex-row md:items-end md:justify-between gap-4"
         >
-          <div className="flex items-center gap-3 mb-4">
-            <div className="h-px w-8" style={{ backgroundColor: "var(--terracotta)" }} />
-            <span
-              className="text-xs uppercase tracking-[0.22em] font-semibold"
-              style={{ color: "var(--terracotta)" }}
-            >
-              Nos services
-            </span>
-          </div>
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+          <div>
+            <div className="flex items-center gap-3 mb-3">
+              <div className="h-px w-8" style={{ backgroundColor: "var(--terracotta)" }} />
+              <span className="text-xs uppercase tracking-[0.22em] font-semibold" style={{ color: "var(--terracotta)" }}>
+                Nos services
+              </span>
+            </div>
             <h2
-              className="text-3xl md:text-4xl max-w-lg leading-tight"
+              className="text-3xl md:text-4xl leading-tight"
               style={{ fontFamily: "var(--font-serif)", color: "var(--navy)" }}
             >
               Une expertise complète{" "}
-              <em className="not-italic" style={{ color: "var(--terracotta)" }}>
-                à votre service
-              </em>
+              <em className="not-italic" style={{ color: "var(--terracotta)" }}>à votre service</em>
             </h2>
-            <p className="text-sm max-w-xs" style={{ color: "var(--text-mid)" }}>
-              Du simple rafraîchissement à la rénovation totale, nous maîtrisons tous les aspects de votre projet.
-            </p>
           </div>
+          <p className="text-sm max-w-xs" style={{ color: "var(--text-mid)" }}>
+            Du simple rafraîchissement à la rénovation totale, nous maîtrisons chaque étape de votre projet.
+          </p>
         </motion.div>
 
-        {/* Services grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {/* Services list */}
+        <div style={{ borderTop: "1px solid var(--beige)" }}>
           {services.map((service, index) => (
             <motion.div
-              key={service.title}
-              initial={{ opacity: 0, y: 40 }}
+              key={service.number}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
-              className="group relative"
+              transition={{ duration: 0.5, delay: index * 0.07, ease: [0.22, 1, 0.36, 1] }}
+              style={{ borderBottom: "1px solid var(--beige)" }}
             >
-              <motion.div
-                whileHover={{ y: -6 }}
-                transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                className="h-full p-5 border flex flex-col transition-all duration-300"
-                style={{
-                  borderColor: "var(--beige)",
-                  backgroundColor: "var(--white)",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = "var(--terracotta)";
-                  e.currentTarget.style.boxShadow = "0 8px 40px rgba(201,98,60,0.12)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = "var(--beige)";
-                  e.currentTarget.style.boxShadow = "none";
-                }}
+              <Link
+                to={service.href}
+                className="group flex items-center gap-4 md:gap-6 py-4 px-2 transition-all duration-200"
+                style={{ backgroundColor: "transparent" }}
+                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "var(--beige-light)")}
+                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "transparent")}
               >
-                {/* Left accent bar */}
-                <div
-                  className="absolute left-0 top-8 bottom-8 w-0.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  style={{ backgroundColor: "var(--terracotta)" }}
-                />
+                {/* Number */}
+                <span
+                  className="text-2xl font-bold leading-none flex-shrink-0 w-8 transition-colors duration-200"
+                  style={{
+                    fontFamily: "var(--font-serif)",
+                    color: "rgba(201,98,60,0.2)",
+                  }}
+                >
+                  {service.number}
+                </span>
 
                 {/* Icon */}
                 <div
-                  className="w-10 h-10 flex items-center justify-center mb-4 transition-all duration-300"
+                  className="w-9 h-9 flex items-center justify-center flex-shrink-0 transition-all duration-200"
                   style={{
-                    backgroundColor: "var(--beige-light)",
                     border: "1px solid var(--beige)",
+                    backgroundColor: "var(--off-white)",
+                  }}
+                  onMouseEnter={(e) => {
+                    (e.currentTarget as HTMLElement).style.borderColor = "var(--terracotta)";
+                    (e.currentTarget as HTMLElement).style.backgroundColor = "rgba(201,98,60,0.06)";
+                  }}
+                  onMouseLeave={(e) => {
+                    (e.currentTarget as HTMLElement).style.borderColor = "var(--beige)";
+                    (e.currentTarget as HTMLElement).style.backgroundColor = "var(--off-white)";
                   }}
                 >
-                  <service.icon
-                    size={18}
-                    style={{ color: "var(--navy)" }}
-                    className="group-hover:text-[--terracotta] transition-colors duration-300"
-                  />
+                  <service.icon size={15} style={{ color: "var(--navy)" }} />
                 </div>
 
-                {/* Title */}
-                <h3
-                  className="text-base font-bold mb-2 transition-colors duration-200"
-                  style={{ fontFamily: "var(--font-serif)", color: "var(--navy)" }}
-                >
-                  {service.title}
-                </h3>
+                {/* Title + description */}
+                <div className="flex-1 min-w-0">
+                  <div
+                    className="text-sm font-bold mb-0.5 group-hover:text-[var(--terracotta)] transition-colors duration-200"
+                    style={{ fontFamily: "var(--font-serif)", color: "var(--navy)" }}
+                  >
+                    {service.title}
+                  </div>
+                  <div className="text-xs leading-relaxed hidden md:block" style={{ color: "var(--text-gray)" }}>
+                    {service.description}
+                  </div>
+                </div>
 
-                {/* Description */}
-                <p className="text-sm leading-relaxed mb-3 flex-1" style={{ color: "var(--text-mid)" }}>
-                  {service.description}
-                </p>
-
-                {/* Features */}
-                <ul className="space-y-1 mb-4">
-                  {service.features.map((f) => (
-                    <li key={f} className="flex items-center gap-2 text-xs" style={{ color: "var(--text-gray)" }}>
-                      <div
-                        className="w-1 h-1 rounded-full flex-shrink-0"
-                        style={{ backgroundColor: "var(--terracotta)" }}
-                      />
-                      {f}
-                    </li>
+                {/* Tags */}
+                <div className="hidden lg:flex gap-2 flex-shrink-0">
+                  {service.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="text-[10px] px-2 py-1 uppercase tracking-wide font-medium"
+                      style={{ backgroundColor: "var(--beige-light)", color: "var(--text-gray)", border: "1px solid var(--beige)" }}
+                    >
+                      {tag}
+                    </span>
                   ))}
-                </ul>
+                </div>
 
-                {/* CTA */}
-                <Link
-                  to={service.href}
-                  className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider transition-colors duration-200 hover:gap-2.5"
+                {/* Arrow */}
+                <ArrowRight
+                  size={15}
+                  className="flex-shrink-0 transition-all duration-200 opacity-0 group-hover:opacity-100 group-hover:translate-x-1"
                   style={{ color: "var(--terracotta)" }}
-                >
-                  En savoir plus
-                  <ArrowRight size={13} />
-                </Link>
-              </motion.div>
+                />
+              </Link>
             </motion.div>
           ))}
         </div>
 
         {/* Bottom CTA */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.7, delay: 0.3 }}
-          className="mt-10 text-center"
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4"
         >
-          <p className="text-sm mb-5" style={{ color: "var(--text-gray)" }}>
+          <p className="text-sm" style={{ color: "var(--text-gray)" }}>
             Vous ne trouvez pas ce que vous cherchez ?
           </p>
           <motion.a
             href="#contact"
-            whileHover={{ scale: 1.03 }}
+            whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.97 }}
             className="inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold text-white transition-all duration-200"
             style={{ backgroundColor: "var(--navy)" }}
@@ -204,7 +195,7 @@ export default function ServicesSection() {
             onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "var(--navy)")}
           >
             Discutons de votre projet
-            <ArrowRight size={16} />
+            <ArrowRight size={15} />
           </motion.a>
         </motion.div>
       </div>
