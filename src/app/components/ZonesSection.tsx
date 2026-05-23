@@ -1,180 +1,178 @@
 import { motion, AnimatePresence } from "motion/react";
 import { Link } from "react-router";
 import { ArrowRight } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { MapContainer, TileLayer, Circle, CircleMarker, Tooltip, useMap } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
+import "./ZonesMap.css";
 
-// Coordonnées SVG calculées depuis GPS réels (centre L'Aigle 48.773°N, 0.624°E)
-// Scale : 50 km = 130 px — viewBox 380×390, centre (190, 195)
+const LAIGLE: [number, number] = [48.7730, 0.6241];
+
 const zones = [
   {
     name: "L'Aigle",
     label: "L'Aigle",
+    lat: 48.7730, lng: 0.6241,
     postalCode: "61300",
     href: "/peintre-laigle",
     note: "Siège — réactivité maximale",
     dept: "Orne (61)",
     tags: ["Siège de l'agence", "Priorité 1", "Devis sous 24h"],
     featured: true,
-    svgX: 190, svgY: 195,
-    lx: 8, ly: -10,
   },
   {
     name: "Verneuil d'Avre et d'Iton",
     label: "Verneuil",
+    lat: 48.7340, lng: 0.9289,
     postalCode: "27130",
     href: "/peintre-verneuil-davre-et-diton",
     note: "Bâtiments anciens & patrimoine",
     dept: "Eure (27)",
     tags: ["Bâti ancien", "Patrimoine"],
     featured: false,
-    svgX: 275, svgY: 205,
-    lx: 7, ly: -8,
   },
   {
     name: "Argentan",
     label: "Argentan",
+    lat: 48.7448, lng: -0.0225,
     postalCode: "61200",
     href: "/peintre-argentan",
     note: "Sous-préfecture de l'Orne",
     dept: "Orne (61)",
     tags: ["Sous-préfecture", "Zone urbaine"],
     featured: false,
-    svgX: 76, svgY: 203,
-    lx: 7, ly: -8,
   },
   {
     name: "Mortagne-au-Perche",
     label: "Mortagne",
+    lat: 48.5186, lng: 0.5484,
     postalCode: "61400",
     href: "/peintre-mortagne-au-perche",
     note: "Maisons bourgeoises du Perche",
     dept: "Orne (61)",
     tags: ["Bâti bourgeois", "Perche ornais"],
     featured: false,
-    svgX: 176, svgY: 269,
-    lx: 7, ly: 13,
   },
   {
     name: "Nogent-le-Rotrou",
     label: "Nogent",
+    lat: 48.3217, lng: 0.8240,
     postalCode: "28400",
     href: "/peintre-nogent-le-rotrou",
     note: "Porte du Perche, Eure-et-Loir",
     dept: "Eure-et-Loir (28)",
     tags: ["Porte du Perche", "Hors zone — sur demande"],
     featured: false,
-    svgX: 228, svgY: 325,
-    lx: 7, ly: -8,
   },
   {
     name: "Gacé",
     label: "Gacé",
+    lat: 48.7885, lng: 0.2993,
     postalCode: "61230",
     href: "/peintre-gace",
     note: "Longères & bâti rural normand",
     dept: "Orne (61)",
     tags: ["Bâti rural", "Longères"],
     featured: false,
-    svgX: 128, svgY: 189,
-    lx: -7, ly: -8,
   },
   {
     name: "Tourouvre-au-Perche",
     label: "Tourouvre",
+    lat: 48.6156, lng: 0.6086,
     postalCode: "61190",
     href: "/peintre-tourouvre-au-perche",
     note: "Fermes & corps de ferme",
     dept: "Orne (61)",
     tags: ["Corps de ferme", "Perche"],
     featured: false,
-    svgX: 185, svgY: 245,
-    lx: 7, ly: 13,
   },
   {
     name: "Saint-Sulpice-sur-Risle",
     label: "St-Sulpice",
+    lat: 48.7629, lng: 0.7177,
     postalCode: "61300",
     href: "/peintre-saint-sulpice-sur-risle",
     note: "Village proche de L'Aigle",
     dept: "Orne (61)",
     tags: ["Proche L'Aigle", "Pavillons"],
     featured: false,
-    svgX: 217, svgY: 208,
-    lx: 7, ly: -8,
   },
   {
     name: "Raï",
     label: "Raï",
+    lat: 48.7367, lng: 0.5508,
     postalCode: "61270",
     href: "/peintre-rai",
     note: "Pavillons & maisons de bourg",
     dept: "Orne (61)",
     tags: ["Bourg rural", "Pavillons"],
     featured: false,
-    svgX: 161, svgY: 213,
-    lx: -6, ly: -8,
   },
   {
     name: "Aube",
     label: "Aube",
+    lat: 48.7283, lng: 0.5925,
     postalCode: "61270",
     href: "/peintre-aube",
     note: "Maisons en pierre de l'Orne",
     dept: "Orne (61)",
     tags: ["Pierre normande", "Maisons de caractère"],
     featured: false,
-    svgX: 166, svgY: 222,
-    lx: -6, ly: 13,
   },
   {
     name: "Crulai",
     label: "Crulai",
+    lat: 48.7895, lng: 0.5847,
     postalCode: "61300",
     href: "/peintre-crulai",
     note: "Maisons de campagne",
     dept: "Orne (61)",
     tags: ["Campagne normande"],
     featured: false,
-    svgX: 181, svgY: 181,
-    lx: -6, ly: -8,
   },
   {
     name: "Chandai",
     label: "Chandai",
+    lat: 48.7589, lng: 0.5875,
     postalCode: "61300",
     href: "/peintre-chandai",
     note: "Village normand typique",
     dept: "Orne (61)",
     tags: ["Village normand"],
     featured: false,
-    svgX: 180, svgY: 210,
-    lx: -6, ly: 13,
   },
   {
     name: "Moulins-la-Marche",
     label: "Moulins",
+    lat: 48.6777, lng: 0.3827,
     postalCode: "61380",
     href: "/peintre-moulins-la-marche",
     note: "Bourg rural de l'Orne",
     dept: "Orne (61)",
     tags: ["Bourg rural"],
     featured: false,
-    svgX: 143, svgY: 229,
-    lx: -6, ly: -8,
   },
   {
     name: "Longny-les-Villages",
     label: "Longny",
+    lat: 48.5229, lng: 0.7485,
     postalCode: "61290",
     href: "/peintre-longny-les-villages",
     note: "Perche ornais & communes",
     dept: "Orne (61)",
     tags: ["Perche ornais"],
     featured: false,
-    svgX: 213, svgY: 269,
-    lx: 7, ly: 13,
   },
 ];
+
+function MapFitter() {
+  const map = useMap();
+  useEffect(() => {
+    const bounds = zones.map((z) => [z.lat, z.lng] as [number, number]);
+    map.fitBounds(bounds, { padding: [28, 28] });
+  }, [map]);
+  return null;
+}
 
 export default function ZonesSection() {
   const [selected, setSelected] = useState(zones[0]);
@@ -216,97 +214,73 @@ export default function ZonesSection() {
           transition={{ duration: 0.7, delay: 0.15 }}
           className="grid lg:grid-cols-[1fr,340px] gap-4"
         >
-
-          {/* ── SVG Map ── */}
+          {/* ── Leaflet Map ── */}
           <div
-            className="relative overflow-hidden"
-            style={{ border: "1px solid var(--beige)", backgroundColor: "var(--beige-light)" }}
+            style={{
+              height: 460,
+              border: "1px solid var(--beige)",
+              overflow: "hidden",
+            }}
           >
-            <svg
-              viewBox="0 0 380 390"
-              className="w-full h-full"
-              style={{ display: "block" }}
+            <MapContainer
+              center={LAIGLE}
+              zoom={10}
+              style={{ height: "100%", width: "100%" }}
+              scrollWheelZoom={false}
+              zoomControl={true}
             >
-              {/* Grid paper background */}
-              <defs>
-                <pattern id="zones-grid" width="20" height="20" patternUnits="userSpaceOnUse">
-                  <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(31,47,58,0.06)" strokeWidth="0.5" />
-                </pattern>
-              </defs>
-              <rect width="380" height="390" fill="url(#zones-grid)" />
-
-              {/* 50km radius circle */}
-              <circle
-                cx="190" cy="195" r="130"
-                fill="rgba(201,98,60,0.04)"
-                stroke="rgba(201,98,60,0.35)"
-                strokeWidth="1"
-                strokeDasharray="5 4"
+              <TileLayer
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
+                url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
               />
-              {/* "50 km" label on circle */}
-              <text x="326" y="192" fontSize="8" fill="rgba(201,98,60,0.6)" fontFamily="Inter, sans-serif" fontWeight="500">
-                50 km
-              </text>
 
-              {/* City dots + labels */}
+              {/* 50 km radius circle */}
+              <Circle
+                center={LAIGLE}
+                radius={50000}
+                pathOptions={{
+                  color: "#C9623C",
+                  fillColor: "#C9623C",
+                  fillOpacity: 0.04,
+                  weight: 1.5,
+                  dashArray: "6 5",
+                }}
+              />
+
+              {/* City markers */}
               {zones.map((zone) => {
                 const isSelected = selected.name === zone.name;
                 const isFeatured = zone.featured;
-
                 return (
-                  <g
+                  <CircleMarker
                     key={zone.name}
-                    onClick={() => setSelected(zone)}
-                    style={{ cursor: "pointer" }}
+                    center={[zone.lat, zone.lng]}
+                    radius={isFeatured ? 9 : isSelected ? 7 : 5}
+                    pathOptions={{
+                      fillColor: isFeatured || isSelected ? "#C9623C" : "#1F2F3A",
+                      fillOpacity: isFeatured ? 1 : isSelected ? 0.9 : 0.55,
+                      color: "white",
+                      weight: isFeatured || isSelected ? 2 : 1.5,
+                    }}
+                    eventHandlers={{ click: () => setSelected(zone) }}
                   >
-                    {/* Selection ring */}
-                    {isSelected && (
-                      <motion.circle
-                        cx={zone.svgX} cy={zone.svgY}
-                        r={isFeatured ? 14 : 10}
-                        fill="none"
-                        stroke="var(--terracotta)"
-                        strokeWidth="1"
-                        strokeOpacity="0.4"
-                        initial={{ scale: 0.7, opacity: 0 }}
-                        animate={{ scale: 1, opacity: 1 }}
-                        transition={{ duration: 0.25 }}
-                      />
-                    )}
-
-                    {/* Dot */}
-                    <circle
-                      cx={zone.svgX}
-                      cy={zone.svgY}
-                      r={isFeatured ? 7 : isSelected ? 5 : 3.5}
-                      fill={isFeatured ? "var(--terracotta)" : isSelected ? "var(--terracotta)" : "var(--navy)"}
-                      fillOpacity={isFeatured ? 1 : isSelected ? 0.9 : 0.55}
-                    />
-
-                    {/* Label */}
-                    <text
-                      x={zone.svgX + zone.lx}
-                      y={zone.svgY + zone.ly}
-                      fontSize={isFeatured ? "9.5" : "7.5"}
-                      fontWeight={isFeatured || isSelected ? "700" : "500"}
-                      fontFamily="Inter, sans-serif"
-                      fill={isFeatured ? "var(--terracotta)" : isSelected ? "var(--navy)" : "rgba(31,47,58,0.65)"}
-                      textAnchor={zone.lx < 0 ? "end" : "start"}
+                    <Tooltip
+                      permanent
+                      direction="top"
+                      offset={[0, isFeatured ? -12 : -8]}
+                      className={`e4m-zone-label${isFeatured ? " e4m-featured" : ""}${isSelected ? " e4m-selected" : ""}`}
                     >
                       {zone.label}
-                    </text>
-                  </g>
+                    </Tooltip>
+                  </CircleMarker>
                 );
               })}
 
-              {/* Watermark */}
-              <text x="10" y="383" fontSize="7" fill="rgba(31,47,58,0.3)" fontFamily="Inter, sans-serif">
-                © Entre 4 Murs — Zone 50 km
-              </text>
-            </svg>
+              <MapFitter />
+            </MapContainer>
           </div>
 
-          {/* ── Info panel ── */}
+          {/* ── Info Panel ── */}
           <div
             className="flex flex-col"
             style={{ border: "1px solid var(--beige)", backgroundColor: "var(--off-white)" }}
@@ -340,7 +314,6 @@ export default function ZonesSection() {
                   {selected.note}
                 </p>
 
-                {/* Featured badge */}
                 {selected.featured && (
                   <div
                     className="inline-flex self-start text-[10px] uppercase tracking-widest font-semibold px-2.5 py-1 mb-4"
@@ -356,7 +329,6 @@ export default function ZonesSection() {
 
                 <div className="h-px mb-4" style={{ backgroundColor: "var(--beige)" }} />
 
-                {/* Tags */}
                 <ul className="space-y-2.5 mb-5 flex-1">
                   <li className="flex items-start gap-2.5 text-sm" style={{ color: "var(--text-mid)" }}>
                     <div className="w-3 h-3 border flex-shrink-0 mt-0.5" style={{ borderColor: "var(--terracotta)" }} />
@@ -372,7 +344,6 @@ export default function ZonesSection() {
 
                 <div className="h-px mb-4" style={{ backgroundColor: "var(--beige)" }} />
 
-                {/* CTA */}
                 <Link
                   to={selected.href}
                   className="group flex items-center justify-between px-4 py-3 text-sm font-semibold transition-all duration-200"
