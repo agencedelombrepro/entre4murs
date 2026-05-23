@@ -2,7 +2,6 @@ import { motion } from "motion/react";
 import { Phone, Mail, MapPin, Clock, ArrowRight, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router";
-import emailjs from "@emailjs/browser";
 
 interface FormData {
   name: string;
@@ -82,20 +81,26 @@ export default function CTASection() {
     setSendError(false);
 
     try {
-      await emailjs.send(
-        import.meta.env.VITE_EMAILJS_SERVICE_ID,
-        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-        {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          access_key: import.meta.env.VITE_WEB3FORMS_KEY,
+          subject: `Demande de devis — ${formData.project} — ${formData.city}`,
           from_name: formData.name,
-          from_email: formData.email,
+          email: formData.email,
           phone: formData.phone,
           city: formData.city,
           project: formData.project,
           message: formData.message,
-        },
-        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-      );
-      setSubmitted(true);
+        }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setSubmitted(true);
+      } else {
+        setSendError(true);
+      }
     } catch {
       setSendError(true);
     } finally {

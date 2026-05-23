@@ -26,6 +26,7 @@ function LogoIcon({ className }: { className?: string }) {
 
 const navLinks = [
   { label: "Services", href: "#services" },
+  { label: "Zones", href: "#zones" },
   { label: "Réalisations", href: "#realisations" },
   { label: "Avis clients", href: "#avis" },
   { label: "Contact", href: "#contact" },
