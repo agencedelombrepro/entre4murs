@@ -20,9 +20,6 @@ const projects: Project[] = [
   { id: 4, src: "/images/chantier-35.jpg", title: "Aménagement combles", location: "Orne (61)", category: "Placo & finitions", description: "Pose de placo et isolation sur charpente apparente. Aménagement de l'espace sous toiture." },
   { id: 5, src: "/images/chantier-03.jpg", title: "Chambre de caractère", location: "L'Aigle", category: "Intérieur", description: "Peinture intérieure dans un bleu mauve chaleureux. Finitions propres et lissées." },
   { id: 6, src: "/images/chantier-26.jpg", title: "Pièce avec boiseries", location: "Orne", category: "Intérieur", description: "Pose de boiseries décoratif et carrelage. Rénovation complète d'un salon." },
-  { id: 7, src: "/images/chantier-31.jpg", title: "Carrelage mural", location: "Orne", category: "Placo & finitions", description: "Pose de carrelage mural grand format gris. Salle de bain en cours de rénovation." },
-  { id: 8, src: "/images/chantier-06.jpg", title: "Chantier en cours", location: "L'Aigle", category: "Intérieur", description: "Rénovation intérieure en cours — préparation des surfaces et première couche." },
-  { id: 9, src: "/images/chantier-22.jpg", title: "Réalisation artisanale", location: "Orne (61)", category: "Intérieur", description: "Travaux de finitions haut de gamme dans une résidence de l'Orne." },
 ];
 
 const categories: Category[] = ["Tout", "Intérieur", "Extérieur", "Placo & finitions"];
@@ -38,7 +35,7 @@ export default function PortfolioSection() {
   return (
     <section
       id="realisations"
-      className="relative py-16"
+      className="relative py-10"
       style={{ backgroundColor: "var(--off-white)" }}
     >
       <div className="max-w-7xl mx-auto px-6">
@@ -48,7 +45,7 @@ export default function PortfolioSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="mb-8"
+          className="mb-5"
         >
           <div className="flex items-center gap-3 mb-4">
             <div className="h-px w-8" style={{ backgroundColor: "var(--terracotta)" }} />
@@ -78,7 +75,7 @@ export default function PortfolioSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="flex flex-wrap gap-2 mb-10"
+          className="flex flex-wrap gap-2 mb-6"
         >
           {categories.map((cat) => (
             <button
@@ -108,7 +105,7 @@ export default function PortfolioSection() {
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.4, delay: i * 0.05 }}
                 className="group relative cursor-pointer overflow-hidden"
-                style={{ aspectRatio: i % 5 === 0 ? "1/1.3" : "1/1" }}
+                style={{ aspectRatio: "1/1" }}
                 onClick={() => setSelected(project)}
               >
                 <motion.img
@@ -147,7 +144,7 @@ export default function PortfolioSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="mt-8 text-center"
+          className="mt-6 text-center"
         >
           <p className="text-sm mb-4" style={{ color: "var(--text-gray)" }}>
             Un projet similaire ? Parlons-en.
