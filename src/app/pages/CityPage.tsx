@@ -666,7 +666,7 @@ export default function CityPage({ city }: CityPageProps) {
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
               <a
-                href="tel:+33XXXXXXXXX"
+                href="tel:+33681601519"
                 className="inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-semibold text-white transition-all"
                 style={{ backgroundColor: "var(--terracotta)" }}
                 onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "var(--terracotta-dark)")}

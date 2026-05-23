@@ -1,7 +1,8 @@
 import { motion } from "motion/react";
-import { Phone, Mail, MapPin, Clock, ArrowRight, CheckCircle2 } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, ArrowRight, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router";
+import emailjs from "@emailjs/browser";
 
 interface FormData {
   name: string;
@@ -70,12 +71,36 @@ export default function CTASection() {
     name: "", phone: "", email: "", city: "", project: "", message: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [sendError, setSendError] = useState(false);
 
   const update = (key: keyof FormData) => (val: string) => setFormData((p) => ({ ...p, [key]: val }));
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setSending(true);
+    setSendError(false);
+
+    try {
+      await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          phone: formData.phone,
+          city: formData.city,
+          project: formData.project,
+          message: formData.message,
+        },
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      );
+      setSubmitted(true);
+    } catch {
+      setSendError(true);
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -143,7 +168,7 @@ export default function CTASection() {
 
               <div className="space-y-5 mb-10">
                 <motion.a
-                  href="tel:+33XXXXXXXXX"
+                  href="tel:+33681601519"
                   whileHover={{ x: 4 }}
                   className="flex items-start gap-4 group"
                 >
@@ -156,7 +181,7 @@ export default function CTASection() {
                   <div>
                     <div className="text-xs text-white/40 mb-0.5">Téléphone</div>
                     <div className="text-lg font-semibold text-white group-hover:text-[var(--terracotta)] transition-colors">
-                      06 XX XX XX XX
+                      06 81 60 15 19
                     </div>
                     <div className="text-xs text-white/40 mt-0.5">Lun–Ven 8h–18h · Sam 9h–12h</div>
                   </div>
@@ -345,16 +370,38 @@ export default function CTASection() {
 
                   <motion.button
                     type="submit"
-                    whileHover={{ scale: 1.02, x: 4 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="group w-full py-4 text-sm font-semibold text-white flex items-center justify-center gap-2 transition-all duration-200"
+                    disabled={sending}
+                    whileHover={sending ? {} : { scale: 1.02, x: 4 }}
+                    whileTap={sending ? {} : { scale: 0.98 }}
+                    className="group w-full py-4 text-sm font-semibold text-white flex items-center justify-center gap-2 transition-all duration-200 disabled:opacity-70 disabled:cursor-not-allowed"
                     style={{ backgroundColor: "var(--terracotta)" }}
-                    onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "var(--terracotta-dark)")}
+                    onMouseEnter={(e) => { if (!sending) e.currentTarget.style.backgroundColor = "var(--terracotta-dark)"; }}
                     onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "var(--terracotta)")}
                   >
-                    Envoyer ma demande de devis
-                    <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                    {sending ? (
+                      <>
+                        <Loader2 size={16} className="animate-spin" />
+                        Envoi en cours…
+                      </>
+                    ) : (
+                      <>
+                        Envoyer ma demande de devis
+                        <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                      </>
+                    )}
                   </motion.button>
+
+                  {sendError && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="flex items-center gap-2 text-xs px-3 py-2"
+                      style={{ backgroundColor: "rgba(212,24,61,0.12)", border: "1px solid rgba(212,24,61,0.3)", color: "#f87171" }}
+                    >
+                      <AlertCircle size={13} />
+                      Une erreur est survenue. Appelez-nous directement ou réessayez.
+                    </motion.div>
+                  )}
 
                   <p className="text-xs text-center" style={{ color: "rgba(255,255,255,0.3)" }}>
                     Vos données sont confidentielles et ne seront jamais partagées à des tiers.
@@ -372,7 +419,7 @@ export default function CTASection() {
         style={{ boxShadow: "0 -2px 16px rgba(31,47,58,0.15)" }}
       >
         <a
-          href="tel:+33XXXXXXXXX"
+          href="tel:+33681601519"
           className="flex-1 flex items-center justify-center gap-2 py-4 text-sm font-semibold text-white"
           style={{ backgroundColor: "var(--navy)" }}
         >
@@ -420,8 +467,8 @@ export default function CTASection() {
                   <li key={link.href}>
                     <Link
                       to={link.href}
-                      className="text-sm transition-colors hover:text-white"
-                      style={{ color: "rgba(255,255,255,0.5)" }}
+                      className="group inline-flex items-center gap-1.5 text-sm transition-all duration-200 hover:text-white hover:underline underline-offset-2"
+                      style={{ color: "rgba(255,255,255,0.55)" }}
                     >
                       {link.label}
                     </Link>
@@ -440,10 +487,11 @@ export default function CTASection() {
                   <li key={link.href}>
                     <Link
                       to={link.href}
-                      className="text-sm transition-colors hover:text-white"
-                      style={{ color: "rgba(255,255,255,0.5)" }}
+                      className="group inline-flex items-center gap-1.5 text-sm transition-all duration-200 hover:text-white hover:underline underline-offset-2"
+                      style={{ color: "rgba(255,255,255,0.55)" }}
                     >
                       {link.label}
+                      <ArrowRight size={11} className="opacity-0 group-hover:opacity-100 transition-opacity -translate-x-1 group-hover:translate-x-0 transition-transform" style={{ color: "var(--terracotta)" }} />
                     </Link>
                   </li>
                 ))}
@@ -458,12 +506,22 @@ export default function CTASection() {
             <div className="text-xs" style={{ color: "rgba(255,255,255,0.25)" }}>
               © {new Date().getFullYear()} Entre 4 Murs — Guillaume Etasse. Tous droits réservés.
             </div>
-            <div className="flex gap-6">
+            <div className="flex flex-wrap items-center justify-center gap-6">
               <a href="#" className="text-xs transition-colors hover:text-white" style={{ color: "rgba(255,255,255,0.25)" }}>
                 Mentions légales
               </a>
               <a href="#" className="text-xs transition-colors hover:text-white" style={{ color: "rgba(255,255,255,0.25)" }}>
                 Politique de confidentialité
+              </a>
+              <span style={{ color: "rgba(255,255,255,0.12)" }}>·</span>
+              <a
+                href="https://site.agencedelombre.fr"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs transition-colors hover:text-white italic"
+                style={{ color: "rgba(255,255,255,0.2)" }}
+              >
+                Créé en toute discrétion par l'Agence de l'Ombre
               </a>
             </div>
           </div>

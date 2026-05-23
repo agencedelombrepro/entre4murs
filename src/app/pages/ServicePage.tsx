@@ -650,14 +650,14 @@ export default function ServicePage({ service }: ServicePageProps) {
               <ArrowRight size={15} />
             </a>
             <a
-              href="tel:+33XXXXXXXXX"
+              href="tel:+33681601519"
               className="inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-medium text-white transition-all duration-200"
               style={{ border: "1px solid rgba(255,255,255,0.2)" }}
               onMouseEnter={(e) => (e.currentTarget.style.borderColor = "rgba(201,98,60,0.5)")}
               onMouseLeave={(e) => (e.currentTarget.style.borderColor = "rgba(255,255,255,0.2)")}
             >
               <Phone size={14} />
-              06 XX XX XX XX
+              06 81 60 15 19
             </a>
           </div>
         </div>

@@ -215,7 +215,7 @@ export default function HeroSection() {
           className="flex flex-col sm:flex-row sm:items-center justify-center gap-4"
         >
           <a
-            href="tel:+33XXXXXXXXX"
+            href="tel:+33681601519"
             className="flex items-center gap-3 text-white/90 hover:text-white transition-colors"
           >
             <div
@@ -226,7 +226,7 @@ export default function HeroSection() {
             </div>
             <div className="text-left">
               <div className="text-xs text-white/50 mb-0.5">Appel gratuit</div>
-              <div className="font-semibold text-sm tracking-wide">06 XX XX XX XX</div>
+              <div className="font-semibold text-sm tracking-wide">06 81 60 15 19</div>
             </div>
           </a>
           <div className="hidden sm:block w-px h-8" style={{ backgroundColor: "rgba(255,255,255,0.15)" }} />

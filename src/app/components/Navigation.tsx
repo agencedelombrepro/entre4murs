@@ -87,7 +87,7 @@ export default function Navigation() {
           {/* CTA phone */}
           <div className="hidden md:flex items-center gap-3">
             <a
-              href="tel:+33XXXXXXXXX"
+              href="tel:+33681601519"
               className="flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-white rounded-none transition-all duration-200 group"
               style={{ backgroundColor: "#C9623C" }}
               onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#B5502A")}
@@ -153,7 +153,7 @@ export default function Navigation() {
             </nav>
 
             <motion.a
-              href="tel:+33XXXXXXXXX"
+              href="tel:+33681601519"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
